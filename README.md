@@ -20,6 +20,7 @@
 > [!IMPORTANT]
 > **Academic Integrity, Lineage & Operational Disclaimer**:  
 > - **Multi-Year Developmental Genesis**: This system originated as a Class 12 CBSE Computer Science Mini Project at **Kendriya Vidyalaya AFS Yelahanka, Bengaluru (2022)**, was integrated into a modular web framework during the *Introduction to Web Development* course at **Ramaiah Institute of Technology (MSRIT, 2023)**, and was fully engineered into an enterprise dual-database production platform (Project ID: 006/2024).
+> - **Core Foundational Repository (2022)**: [Nandish-508379/ABSENT-TEACHER-ARRANGEMENT-MANAGEMENT-SYSTEM-LEGACY: ABSENT TEACHER ARRANGEMENT MANAGEMENT SYSTEM (LEGACY) - Class 12 CBSE Computer Science Investigatory Project (2022)](https://github.com/Nandish-508379/ABSENT-TEACHER-ARRANGEMENT-MANAGEMENT-SYSTEM-LEGACY)
 > - **Dual-Engine Standalone Testing**: If a local MySQL server is not detected on port 3306, the platform activates its embedded SQLite engine (`timetable.db`), generates all 6 weekday tables, provisions default administrative and faculty accounts, and automatically seeds initial master schedule records from `INITIALISE/newrecc.csv` for immediate out-of-the-box operation.
 > - **Proprietary & Non-Commercial Rights**: All architectural designs, algorithmic workflows, user interface styling, database schemas, and documentation are the proprietary intellectual property of **M Nandish**. Any reproduction, editing, copying, updating, or commercial deployment requires the prior explicit written and exclusive permission of the author.
 
@@ -81,11 +82,10 @@ A video walkthrough demonstrates the complete system execution from cold bootstr
 | :--- | :--- | :--- | :---: |
 | **Comprehensive System Walkthrough** | `210.5 MB` · Full HD MP4 · Original Audio | Cold bootstrap, automatic SQLite database failover, CSV master schedule ingestion, dual-interface matrix switching, real-time teacher absence allocation, green/red/teal cell styling, CSV download, and printable slip formatting | [▶️ Open Explaination Video.mp4](Explaination%20Video.mp4) |
 
-```text
-Local Video File Location:
-- Master Walkthrough Video : Explaination Video.mp4
-(Note: For GitHub repositories, files exceeding 100MB are managed via Git LFS or external media hosting.)
-```
+### Direct Repository Video Asset
+- **File Asset in Repository**: [`Explaination Video.mp4`](Explaination%20Video.mp4)
+- **Direct Playback Link**: [▶️ Click here to watch Explaination Video.mp4](Explaination%20Video.mp4)
+- **Workspace Location**: Root repository (`./Explaination Video.mp4`)
 
 ---
 
@@ -384,23 +384,9 @@ flowchart TD
 
 ---
 
-## 🔍 System Assumptions \& Operational Boundary Conditions
+## 🚀 Scalability Architecture & Multi-Department Expansion
 
-To maintain deterministic integrity across institutional timetables, the system is calibrated to the following operational parameters:
-
-| Operational Parameter | Specification | Boundary Condition Rationale |
-| :--- | :--- | :--- |
-| **Academic Cycle** | 6 Operational Days (`monday` through `saturday`) | Standard high school and collegiate instructional cycle. |
-| **Daily Period Density** | 8 Instruction Periods (`1` to `8`) | 4 Morning Periods (1–4), Central Recess/Lunch Break, 4 Afternoon Periods (5–8). |
-| **Free Period Representation** | `class = 'null'` (case-insensitive) | Distinctly identifies unscheduled faculty hours available for substitution duty. |
-| **Clash Invariant** | Exactly one class per teacher per period | A faculty member cannot be scheduled to teach two distinct classes during the same period. |
-| **Administrative Roles** | Role `'A'` (Administrator) vs Role `'U'` (Faculty/User) | Administrators control data ingestion, account provisioning, and timetable purging; faculty have view and leave allocation access. |
-
----
-
-## 🚀 Scalability Architecture \& Multi-Department Expansion
-
-While currently deployed for single-department or high school schedules, the architecture supports horizontal scaling for multi-department collegiate institutions:
+While initially deployed for single-department or high school schedules, the architecture supports horizontal scaling for multi-department collegiate institutions and large university campuses:
 
 ```mermaid
 graph LR
@@ -431,8 +417,29 @@ graph LR
     W1 -.->|"Failover"| SQLITE_LOCAL
 ```
 
-- **Departmental Partitioning**: Schedule tables can be namespaced by department code (e.g. `ete_monday`, `cse_monday`) while utilizing the identical substitution engine.
-- **Stateless Session Management**: User sessions utilize cryptographically signed client-side cookies (`app.secret_key`), enabling multi-worker load balancing across reverse proxies without sticky session overhead.
+### Architectural Scalability Dimensions:
+1. **Horizontal Multi-Worker WSGI Concurrency**:
+   - The Flask WSGI core is completely stateless. Session tokens are cryptographically signed on the client (`app.secret_key`), allowing requests to be distributed across multiple Gunicorn/uWSGI worker processes behind an Nginx reverse proxy without requiring sticky sessions.
+2. **Departmental Table Sharding & Partitioning**:
+   - Timetable tables can be namespaced by department code (e.g. `ete_monday`, `cse_monday`, `mech_monday`) within a single database instance or distributed across independent database shards while running the identical substitution engine.
+3. **Cross-Departmental Shared Faculty Pool**:
+   - For multi-disciplinary subjects (e.g. Mathematics, Humanities, Basic Sciences) taught across multiple departments, the candidate query can execute a federated union across departmental free pools (`class = 'null'`), maximizing faculty utilization campus-wide.
+4. **Resilient Local Edge Failover for Remote Campus Nodes**:
+   - In distributed multi-campus environments where wide-area network (WAN) connectivity to the central MySQL cluster may experience latency or outages, individual campus nodes seamlessly fall back to their local SQLite instance (`timetable.db`), ensuring zero downtime for morning classroom substitution allocation.
+
+---
+
+## 🔍 System Assumptions & Operational Boundary Conditions
+
+To maintain deterministic integrity across institutional timetables, the system is calibrated to the following operational parameters:
+
+| Operational Parameter | Specification | Boundary Condition Rationale |
+| :--- | :--- | :--- |
+| **Academic Cycle** | 6 Operational Days (`monday` through `saturday`) | Standard high school and collegiate instructional cycle. |
+| **Daily Period Density** | 8 Instruction Periods (`1` to `8`) | 4 Morning Periods (1–4), Central Recess/Lunch Break, 4 Afternoon Periods (5–8). |
+| **Free Period Representation** | `class = 'null'` (case-insensitive) | Distinctly identifies unscheduled faculty hours available for substitution duty. |
+| **Clash Invariant** | Exactly one class per teacher per period | A faculty member cannot be scheduled to teach two distinct classes during the same period. |
+| **Administrative Roles** | Role `'A'` (Administrator) vs Role `'U'` (Faculty/User) | Administrators control data ingestion, account provisioning, and timetable purging; faculty have view and leave allocation access. |
 
 ---
 
@@ -781,6 +788,7 @@ For licensing authorizations, contact the author directly at: `nandish508379@gma
 - **Foundational Lineage**: Kendriya Vidyalaya AFS Yelahanka, Bengaluru (Class 12, 2022)
 - **Academic Milestone**: Web Development Course, MSRIT (2023)
 - **Competition Milestone**: Smart India Hackathon Presentation Edition (2024)
+- **Foundational Core System (2022)**: [Nandish-508379/ABSENT-TEACHER-ARRANGEMENT-MANAGEMENT-SYSTEM-LEGACY](https://github.com/Nandish-508379/ABSENT-TEACHER-ARRANGEMENT-MANAGEMENT-SYSTEM-LEGACY)
 - **Project ID**: `006/2024`
 - **Project Title**: Automated Faculty Absence & Substitution Management System
 - **Creation Year**: `2024`
