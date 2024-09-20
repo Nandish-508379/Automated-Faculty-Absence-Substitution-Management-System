@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Portal | Automated Faculty Absence & Substitution Management System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-group">
+                <div class="brand-text">
+                    <h1>Automated Faculty Absence & Substitution Management System</h1>
+                    <div class="brand-meta">
+                        Project ID: 006/2024 &nbsp;|&nbsp; Academic Year: 2024 &nbsp;|&nbsp; Faculty Portal
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-status-bar">
+                <div>Faculty: <strong>{{ user[0] }}</strong></div>
+                <div>Role: <strong>Faculty User</strong></div>
+                <div>Session Day: <strong style="text-transform: capitalize;">{{ session.get('day', 'monday') }}</strong></div>
+                <div style="display: flex; gap: 6px; margin-left: 6px;">
+                    <a href="/Change_Password" class="btn btn-secondary btn-sm">Password</a>
+                    <a href="/Logout" class="btn btn-danger btn-sm">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card" style="border-left: 4px solid var(--secondary-color);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary-color);">Faculty Member Portal: {{ user[0] }}</h2>
+                    <p style="color: var(--mid-gray); font-size: 0.88rem; margin-top: 3px;">
+                        Access academic timetables in matrix grid or list design, review leave substitution allocations, and print daily slips.
+                    </p>
+                </div>
+                <div>
+                    <span class="badge badge-primary" style="font-size: 0.82rem; padding: 6px 12px;">Active Day: {{ session.get('day', 'monday') | upper }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">Available Operations</div>
+
+        <div class="dashboard-grid">
+            <!-- View Timetable -->
+            <div class="action-card">
+                <div>
+                    <h3>Master Timetable</h3>
+                    <p>Inspect master timetable in Grid or List view, search faculty allocations, export to CSV, or print.</p>
+                </div>
+                <a href="/VIEW_TIMETABLE" class="btn btn-primary btn-block">View Master Timetable</a>
+            </div>
+
+            <!-- View Arrangements -->
+            <div class="action-card">
+                <div>
+                    <h3>Faculty Arrangements</h3>
+                    <p>Lookup teacher substitution plans and see available faculty assignments for absent staff.</p>
+                </div>
+                <a href="/do_arrangement" class="btn btn-secondary btn-block">Arrangement Lookup</a>
+            </div>
+
+            <!-- Change Password -->
+            <div class="action-card">
+                <div>
+                    <h3>Account Security</h3>
+                    <p>Update personal account password to maintain safe and confidential access to the system.</p>
+                </div>
+                <a href="/Change_Password" class="btn btn-secondary btn-block">Change Password</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div>
+                <strong>Automated Faculty Absence & Substitution Management System</strong>
+            </div>
+            <div style="text-align: right;">
+                Project ID: <code>006/2024</code> · Year: <code>2024</code> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

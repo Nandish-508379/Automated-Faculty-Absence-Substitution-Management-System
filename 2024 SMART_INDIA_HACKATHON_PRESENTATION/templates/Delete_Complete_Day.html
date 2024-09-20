@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purge Day Schedule | Automated Faculty Absence & Substitution Management System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-group">
+                <div class="brand-text">
+                    <h1>Automated Faculty Absence & Substitution Management System</h1>
+                    <div class="brand-meta">
+                        Project ID: 006/2024 &nbsp;|&nbsp; Schedule Purge Utility
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-status-bar">
+                <div>Administrator</div>
+                <a href="/back_to_home_page" class="btn btn-secondary btn-sm">Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="max-width: 540px; margin: 20px auto 0;">
+            <div class="card" style="border-top: 3px solid #c53030;">
+                <div class="card-header">
+                    <div>
+                        <h2>Purge Complete Day Timetable</h2>
+                        <p>Permanently remove all faculty allocations for an entire weekday.</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-danger">
+                    Warning: All period records for the chosen day will be deleted permanently.
+                </div>
+
+                <form action="/DELETE_COMPLETE_DAY" method="POST">
+                    <div class="form-group">
+                        <label for="Selete_Day_del">Select Day to Purge</label>
+                        <select name="Selete_Day_del" id="Selete_Day_del" required>
+                            <option value="monday">Monday</option>
+                            <option value="tuesday">Tuesday</option>
+                            <option value="wednesday">Wednesday</option>
+                            <option value="thursday">Thursday</option>
+                            <option value="friday">Friday</option>
+                            <option value="saturday">Saturday</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 24px;">
+                        <button type="submit" class="btn btn-danger" style="flex: 2;">Confirm & Purge Day</button>
+                        <a href="/back_to_home_page" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div>
+                <strong>Automated Faculty Absence & Substitution Management System</strong>
+            </div>
+            <div style="text-align: right;">
+                Project ID: <code>006/2024</code> · Year: <code>2024</code> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

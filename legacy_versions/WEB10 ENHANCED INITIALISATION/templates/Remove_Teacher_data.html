@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Teacher Schedule | Automated Faculty Absence & Substitution Management System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-group">
+                <div class="brand-text">
+                    <h1>Automated Faculty Absence & Substitution Management System</h1>
+                    <div class="brand-meta">
+                        Project ID: 006/2024 &nbsp;|&nbsp; Teacher Schedule Management
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-status-bar">
+                <div>Day: <strong style="text-transform: capitalize;">{{ session.get('day', 'monday') }}</strong></div>
+                <a href="/back_to_home_page" class="btn btn-secondary btn-sm">Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="max-width: 540px; margin: 20px auto 0;">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Remove Teacher Schedule</h2>
+                        <p>Delete all assigned periods for a teacher on {{ session.get('day', 'monday') | capitalize }}.</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning">
+                    Notice: This clears all periods for the selected teacher on this day.
+                </div>
+
+                <form action="/REMOVE_TEACHER_DEF_DAY" method="POST">
+                    <div class="form-group">
+                        <label for="teacherToRemove">Select Teacher</label>
+                        <select id="teacherToRemove" name="teacherToRemove" required>
+                            <option value="DEFAULT">-- Select a faculty member --</option>
+                            {% for teacher in output_list2 %}
+                            <option value="{{ teacher[0] }}">{{ teacher[0] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 24px;">
+                        <button type="submit" class="btn btn-danger" style="flex: 2;">Remove Schedule</button>
+                        <a href="/back_to_home_page" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div>
+                <strong>Automated Faculty Absence & Substitution Management System</strong>
+            </div>
+            <div style="text-align: right;">
+                Project ID: <code>006/2024</code> · Year: <code>2024</code> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

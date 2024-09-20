@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrangement Matrix | Automated Faculty Absence & Substitution Management System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-group">
+                <div class="brand-text">
+                    <h1>Automated Faculty Absence & Substitution Management System</h1>
+                    <div class="brand-meta">
+                        Project ID: 006/2024 &nbsp;|&nbsp; Faculty Substitution Output
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-status-bar">
+                <div>Session Day: <strong style="text-transform: capitalize;">{{ arr_day if arr_day else session.get('day', 'monday') }}</strong></div>
+                <a href="/back_to_home_page" class="btn btn-secondary btn-sm">Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h2>Faculty Arrangement Results: <span style="color: var(--primary-color);">{{ absent_teacher | upper }}</span></h2>
+                    <p>Substitution plan for absent faculty <strong>{{ absent_teacher }}</strong> on {{ (arr_day if arr_day else session.get('day', 'monday')) | capitalize }}.</p>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()">Print Arrangement Slip</button>
+                    <a href="/diffrent_teacher" class="btn btn-primary btn-sm">Check Another Faculty</a>
+                </div>
+            </div>
+
+            <div class="print-header">
+                <h2>OFFICIAL FACULTY SUBSTITUTION ORDER</h2>
+                <p>Absent Faculty: <strong style="text-transform: uppercase;">{{ absent_teacher }}</strong> | Day: <strong style="text-transform: uppercase;">{{ arr_day if arr_day else session.get('day', 'monday') }}</strong> | Project ID: 006/2024</p>
+                <hr style="margin: 10px 0;">
+            </div>
+
+            <!-- Dual Interface Mode Switcher -->
+            <div class="view-mode-tabs no-print">
+                <button type="button" id="tabArrGridBtn" class="view-tab-btn active" onclick="switchArrView('grid')">
+                    Timetable Grid View (Matrix Design)
+                </button>
+                <button type="button" id="tabArrListBtn" class="view-tab-btn" onclick="switchArrView('list')">
+                    Substitution Summary (List View)
+                </button>
+            </div>
+
+            {% if output_list and output_list|length > 0 %}
+            
+            <!-- ============================================================== -->
+            <!-- INTERFACE 1: TIMETABLE MATRIX GRID DESIGN                     -->
+            <!-- ============================================================== -->
+            <div id="interfaceArrGrid">
+                <div class="alert alert-info no-print">
+                    <span>Matrix shows full day timetable with absent faculty <strong>{{ absent_teacher }}</strong>'s periods marked for substitution.</span>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="matrix-grid">
+                        <thead>
+                            <tr>
+                                <th class="grid-header-corner">FACULTY</th>
+                                <th class="period-head">PERIOD 1</th>
+                                <th class="period-head">PERIOD 2</th>
+                                <th class="period-head">PERIOD 3</th>
+                                <th class="period-head">PERIOD 4</th>
+                                <th class="lunch-break-col">RECESS / LUNCH</th>
+                                <th class="period-head">PERIOD 5</th>
+                                <th class="period-head">PERIOD 6</th>
+                                <th class="period-head">PERIOD 7</th>
+                                <th class="period-head">PERIOD 8</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if teachers and teachers|length > 0 %}
+                                {% for teacher in teachers %}
+                                <tr>
+                                    <td class="teacher-name-cell" {% if teacher|lower == absent_teacher|lower %}style="background-color: #fed7d7; color: #9b2c2c;"{% endif %}>
+                                        {{ teacher }} {% if teacher|lower == absent_teacher|lower %}(ABSENT){% endif %}
+                                    </td>
+                                    
+                                    {% for p in [1, 2, 3, 4] %}
+                                        {% if teacher|lower == absent_teacher|lower %}
+                                            {% if p in period_sub_info %}
+                                                {% set info = period_sub_info[p] %}
+                                                {% if info.has_free %}
+                                                    <td class="slot-sub-assigned">
+                                                        <div style="font-size: 0.95rem; font-weight: 800;">{{ info.class | upper }}</div>
+                                                        <div style="font-size: 0.74rem; font-weight: 700; margin-top: 2px;">Assigned: {{ info.assigned_teacher }}</div>
+                                                        <div style="font-size: 0.68rem; opacity: 0.85;">Free: {{ info.free_teachers_str }}</div>
+                                                    </td>
+                                                {% else %}
+                                                    <td class="slot-sub-unassigned">
+                                                        <div style="font-size: 0.95rem; font-weight: 800;">{{ info.class | upper }}</div>
+                                                        <div style="font-size: 0.74rem; font-weight: 700; margin-top: 2px;">NO TEACHER FREE</div>
+                                                        <div style="font-size: 0.68rem; opacity: 0.85;">Not Assigned</div>
+                                                    </td>
+                                                {% endif %}
+                                            {% else %}
+                                                <td class="slot-free">-</td>
+                                            {% endif %}
+                                        {% else %}
+                                            {% set t_key = (teacher|lower, p) %}
+                                            {% if t_key in substitute_duties %}
+                                                {% set duty = substitute_duties[t_key] %}
+                                                <td class="slot-sub-covering">
+                                                    <div style="font-size: 0.85rem; font-weight: 700; color: #234e52;">Covering {{ duty.class | upper }}</div>
+                                                    <div style="font-size: 0.70rem; color: #285e61;">(Sub for {{ duty.absent_teacher }})</div>
+                                                </td>
+                                            {% elif matrix_grid[teacher][p] == 'Free' %}
+                                                <td class="slot-free">-</td>
+                                            {% else %}
+                                                <td class="slot-class">{{ matrix_grid[teacher][p] }}</td>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if loop.first %}
+                                    <td class="lunch-break-col" rowspan="{{ teachers|length }}">
+                                        BREAK
+                                    </td>
+                                    {% endif %}
+
+                                    {% for p in [5, 6, 7, 8] %}
+                                        {% if teacher|lower == absent_teacher|lower %}
+                                            {% if p in period_sub_info %}
+                                                {% set info = period_sub_info[p] %}
+                                                {% if info.has_free %}
+                                                    <td class="slot-sub-assigned">
+                                                        <div style="font-size: 0.95rem; font-weight: 800;">{{ info.class | upper }}</div>
+                                                        <div style="font-size: 0.74rem; font-weight: 700; margin-top: 2px;">Assigned: {{ info.assigned_teacher }}</div>
+                                                        <div style="font-size: 0.68rem; opacity: 0.85;">Free: {{ info.free_teachers_str }}</div>
+                                                    </td>
+                                                {% else %}
+                                                    <td class="slot-sub-unassigned">
+                                                        <div style="font-size: 0.95rem; font-weight: 800;">{{ info.class | upper }}</div>
+                                                        <div style="font-size: 0.74rem; font-weight: 700; margin-top: 2px;">NO TEACHER FREE</div>
+                                                        <div style="font-size: 0.68rem; opacity: 0.85;">Not Assigned</div>
+                                                    </td>
+                                                {% endif %}
+                                            {% else %}
+                                                <td class="slot-free">-</td>
+                                            {% endif %}
+                                        {% else %}
+                                            {% set t_key = (teacher|lower, p) %}
+                                            {% if t_key in substitute_duties %}
+                                                {% set duty = substitute_duties[t_key] %}
+                                                <td class="slot-sub-covering">
+                                                    <div style="font-size: 0.85rem; font-weight: 700; color: #234e52;">Covering {{ duty.class | upper }}</div>
+                                                    <div style="font-size: 0.70rem; color: #285e61;">(Sub for {{ duty.absent_teacher }})</div>
+                                                </td>
+                                            {% elif matrix_grid[teacher][p] == 'Free' %}
+                                                <td class="slot-free">-</td>
+                                            {% else %}
+                                                <td class="slot-class">{{ matrix_grid[teacher][p] }}</td>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 14px; font-size: 0.82rem; color: var(--dark-gray); display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+                    <span style="font-weight: 700;">Indicators:</span>
+                    <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="display: inline-block; width: 14px; height: 14px; background-color: #c6f6d5; border: 1.5px solid #2f855a;"></span>
+                        <strong>Green:</strong> Substitute Teacher Free & Assigned
+                    </span>
+                    <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="display: inline-block; width: 14px; height: 14px; background-color: #fed7d7; border: 1.5px solid #c53030;"></span>
+                        <strong>Red:</strong> No Teacher Free & Not Assigned
+                    </span>
+                    <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="display: inline-block; width: 14px; height: 14px; background-color: #e6fffa; border: 1.5px solid #319795;"></span>
+                        <strong>Teal:</strong> Faculty Assigned to Cover
+                    </span>
+                </div>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- INTERFACE 2: SUBSTITUTION SUMMARY LIST TABLE                   -->
+            <!-- ============================================================== -->
+            <div id="interfaceArrList" style="display: none;">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Period</th>
+                                <th>Class Requiring Coverage</th>
+                                <th>Suggested Substitute Faculty</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in output_list %}
+                            <tr>
+                                <td><strong>Period {{ item[0] }}</strong></td>
+                                <td><span class="badge badge-primary">{{ item[1] | upper }}</span></td>
+                                <td style="font-family: var(--font-mono); font-weight: 700; color: var(--primary-color);">{{ item[2] }}</td>
+                                <td><span class="badge badge-success">Free & Assigned</span></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-info" style="margin-top: 14px;">
+                    Protocol Note: If any period lacks an available free faculty member, the period may be designated as Games / Self-Study.
+                </div>
+            </div>
+
+            {% else %}
+            <div class="alert alert-warning" style="text-align: center; padding: 28px;">
+                <h3>No Substitute Allocations Found</h3>
+                <p style="color: var(--mid-gray); margin-top: 6px;">
+                    Either faculty member <strong>{{ absent_teacher }}</strong> has no teaching classes scheduled on this day, or no other teachers are free during those periods.
+                </p>
+                <div style="margin-top: 14px;">
+                    <a href="/diffrent_teacher" class="btn btn-primary">Check Another Faculty / Day</a>
+                </div>
+            </div>
+            {% endif %}
+
+            <div style="margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border-color); display: flex; gap: 10px;" class="no-print">
+                <a href="/diffrent_teacher" class="btn btn-secondary">Check Different Teacher</a>
+                <a href="/back_to_home_page" class="btn btn-primary">Back to Dashboard</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div>
+                <strong>Automated Faculty Absence & Substitution Management System</strong>
+            </div>
+            <div style="text-align: right;">
+                Project ID: <code>006/2024</code> · Year: <code>2024</code> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchArrView(mode) {
+            var gridEl = document.getElementById("interfaceArrGrid");
+            var listEl = document.getElementById("interfaceArrList");
+            var gridBtn = document.getElementById("tabArrGridBtn");
+            var listBtn = document.getElementById("tabArrListBtn");
+
+            if (mode === 'grid') {
+                gridEl.style.display = "block";
+                listEl.style.display = "none";
+                gridBtn.className = "view-tab-btn active";
+                listBtn.className = "view-tab-btn";
+            } else {
+                gridEl.style.display = "none";
+                listEl.style.display = "block";
+                gridBtn.className = "view-tab-btn";
+                listBtn.className = "view-tab-btn active";
+            }
+        }
+    </script>
+</body>
+</html>

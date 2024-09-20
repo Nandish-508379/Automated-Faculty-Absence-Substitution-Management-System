@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <h1>WELCOME TO ARRANGEMENT TIMETABLE MANAGEMENT SOFTWARE</h1>
+    <hr>
+</head>
+<body>
+    <h3><u><b>CURRENT USER DETAILS-</b></u></h3>
+    <h4>USERNAME- {{ user[0] }} </h4>
+    <h4>CURRENT ROLE- {{ user[2] }}</h4>
+    <hr>
+
+    <!-- Button to run backend -->
+    <form action="/run_arrangements" method="get">
+        <input type="submit" value="Do Arrangements">
+    </form>
+</body>
+</html>

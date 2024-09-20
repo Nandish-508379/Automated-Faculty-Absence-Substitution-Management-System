@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Timetable Records | Automated Faculty Absence & Substitution Management System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-group">
+                <div class="brand-text">
+                    <h1>Automated Faculty Absence & Substitution Management System</h1>
+                    <div class="brand-meta">
+                        Project ID: 006/2024 &nbsp;|&nbsp; Timetable Data Ingestion
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-status-bar">
+                <div>Session Day: <strong style="text-transform: capitalize;">{{ session.get('day', 'monday') }}</strong></div>
+                <a href="/back_to_home_page" class="btn btn-secondary btn-sm">Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="max-width: 680px; margin: 20px auto 0;">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Import Timetable Records (CSV)</h2>
+                        <p>Upload a standard CSV schedule file or specify a local workspace dataset.</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Standard CSV Format Structure:</strong>
+                    <p style="margin-top: 4px; font-size: 0.85rem;">Each row must contain 3 columns (Teacher, Class, Period):</p>
+                    <pre style="background: #ffffff; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: var(--border-radius); margin-top: 6px; font-family: var(--font-mono); font-size: 0.8rem;">teacher_code,class_name,period_number
+kvgs,11a,1
+kvgs,null,2    (use 'null' for free period)
+sj,11c,2</pre>
+                </div>
+
+                <form action="/INSERT_DATA" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="insert_day">Target Day</label>
+                        <select name="insert_day" id="insert_day" required>
+                            <option value="monday" {% if session.get('day') == 'monday' %}selected{% endif %}>Monday</option>
+                            <option value="tuesday" {% if session.get('day') == 'tuesday' %}selected{% endif %}>Tuesday</option>
+                            <option value="wednesday" {% if session.get('day') == 'wednesday' %}selected{% endif %}>Wednesday</option>
+                            <option value="thursday" {% if session.get('day') == 'thursday' %}selected{% endif %}>Thursday</option>
+                            <option value="friday" {% if session.get('day') == 'friday' %}selected{% endif %}>Friday</option>
+                            <option value="saturday" {% if session.get('day') == 'saturday' %}selected{% endif %}>Saturday</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="csv_file">Upload CSV File</label>
+                        <input type="file" id="csv_file" name="csv_file" accept=".csv">
+                    </div>
+
+                    <div style="text-align: center; margin: 12px 0; color: var(--mid-gray); font-size: 0.85rem; font-weight: 600;">
+                        — OR ENTER RELATIVE FILE PATH —
+                    </div>
+
+                    <div class="form-group">
+                        <label for="locatio">Workspace Relative File Path</label>
+                        <input type="text" id="locatio" name="locatio" placeholder="e.g. INITIALISE/newrecc.csv">
+                        <div style="margin-top: 6px;">
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="setSamplePath('INITIALISE/newrecc.csv')">
+                                Load Sample Dataset (INITIALISE/newrecc.csv)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 24px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 2;">Import Records</button>
+                        <a href="/back_to_home_page" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div>
+                <strong>Automated Faculty Absence & Substitution Management System</strong>
+            </div>
+            <div style="text-align: right;">
+                Project ID: <code>006/2024</code> · Year: <code>2024</code> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function setSamplePath(path) {
+            document.getElementById('locatio').value = path;
+            document.getElementById('csv_file').value = '';
+        }
+    </script>
+</body>
+</html>

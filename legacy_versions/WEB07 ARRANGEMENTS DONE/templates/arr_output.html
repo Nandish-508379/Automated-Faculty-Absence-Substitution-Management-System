@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Output Page</title>
+</head>
+<body>
+    <h1>ARRANGEMENT OUTPUT PAGE</h1>
+
+    <table>
+        <tr>
+            <th>ARRANGEMENT PERIOD NUMBER ||  </th>
+            <th> ARRANGEMENT PERIOD CLASS ||  </th>
+            <th> FREE TEACHER</th>
+        </tr>
+        {% for item in output_list %}
+            <tr>
+                <th>{{ item[0] }}</th>
+                <th>{{ item[1] }}</th>
+                <th>{{ item[2] }}</th>
+            </tr>
+        {% endfor %}
+    </table>
+    <hr style="width: 50%">
+    <H6>*___ if no value found then assume it as 'games'</H6>
+<hr>
+<form action="/diffrent_teacher" method="get">
+    <input type="submit" value="Do Arrangement for diffrent teacher">
+</form>
+
+<form action="/back_to_home_page" method="get">
+    <input type="submit" value="back to home page">
+</form>
+
+</body>
+</html>

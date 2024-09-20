@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Output Page</title>
+</head>
+<body>
+    <h1>ARRANGEMENT OUTPUT PAGE</h1>
+
+    <ul>
+        {% for item in output_list %}
+            <li>IN PERIOD - {item(0)}, FREE CLASS - {item(1)} , FREE TEACHER - {item(2)} </li>
+            <hr>
+        {% endfor %}
+    </ul>
+<hr>
+    <H6>*___ if no value found then assume it as 'games'</H6>
+</body>
+</html>

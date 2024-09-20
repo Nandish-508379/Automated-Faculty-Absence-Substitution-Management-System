@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove User</title>
+</head>
+<body>
+<h1>Remove User</h1>
+<form action="/Delete_User" method="POST">
+    <label for="userToRemove">Select a user to remove:</label>
+    <select id="userToRemove" name="userToRemove">
+        <option value="DEFAULT">Select user to remove</option>
+        {% for user in output_list1 %}
+        <option value="{{ user[0] }}">{{ user[0] }}</option>
+        {% endfor %}
+    </select>
+    <h5>ON SUCCESSFULL REMOVAL THIS SESSION WILL BE TERMINATED</h5>
+    <h5>ON IN ACCURATE SELECTION OF DATA YOU WILL  BE REDIRECTED TO BACK TO HOME PAGE</h5>
+    <HR>
+    <input ID ="SUBMIT_BUTTON" type="submit" value="YES DELETE THE SELECTED USER">
+</form>
+<br><br>
+<form action="/back_to_home_page" method="get">
+    <input type="submit" value="back to home page">
+</form>
+</body>
+</html>

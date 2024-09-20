@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Arrangements | Automated Faculty Absence & Substitution Management System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-group">
+                <div class="brand-text">
+                    <h1>Automated Faculty Absence & Substitution Management System</h1>
+                    <div class="brand-meta">
+                        Project ID: 006/2024 &nbsp;|&nbsp; Substitution Allocation Panel
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-status-bar">
+                <div>Session Day: <strong style="text-transform: capitalize;">{{ session.get('day', 'monday') }}</strong></div>
+                <a href="/back_to_home_page" class="btn btn-secondary btn-sm">Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="max-width: 650px; margin: 20px auto 0;">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Compute Faculty Arrangements</h2>
+                        <p>Generate substitute faculty allocations for absent teachers on a designated day.</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Substitution Processing Rules:</strong>
+                    <ol style="margin-left: 18px; margin-top: 6px; font-size: 0.86rem; line-height: 1.5;">
+                        <li>Select the target day and enter the absent teacher's code (e.g. <code>kvgs</code>, <code>sj</code>, <code>anu</code>, <code>gn</code>, <code>him</code>).</li>
+                        <li>The system detects all periods where the faculty has assigned classes.</li>
+                        <li>It identifies all available teachers with free slots during those periods and creates the substitution matrix.</li>
+                    </ol>
+                </div>
+
+                <form action="/do_arrangement" method="post">
+                    <div class="form-group">
+                        <label for="day">Target Day</label>
+                        <select name="day" id="day" required>
+                            <option value="monday" {% if session.get('day') == 'monday' %}selected{% endif %}>Monday</option>
+                            <option value="tuesday" {% if session.get('day') == 'tuesday' %}selected{% endif %}>Tuesday</option>
+                            <option value="wednesday" {% if session.get('day') == 'wednesday' %}selected{% endif %}>Wednesday</option>
+                            <option value="thursday" {% if session.get('day') == 'thursday' %}selected{% endif %}>Thursday</option>
+                            <option value="friday" {% if session.get('day') == 'friday' %}selected{% endif %}>Friday</option>
+                            <option value="saturday" {% if session.get('day') == 'saturday' %}selected{% endif %}>Saturday</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="absent_teacher">Absent Teacher Code / Name</label>
+                        <input type="text" id="absent_teacher" name="absent_teacher" placeholder="e.g. kvgs or sj" required autofocus>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 22px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 2;">Compute Arrangements</button>
+                        <a href="/back_to_home_page" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div>
+                <strong>Automated Faculty Absence & Substitution Management System</strong>
+            </div>
+            <div style="text-align: right;">
+                Project ID: <code>006/2024</code> · Year: <code>2024</code> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

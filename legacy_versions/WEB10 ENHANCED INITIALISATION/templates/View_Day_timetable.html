@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Schedule | Automated Faculty Absence & Substitution Management System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-group">
+                <div class="brand-text">
+                    <h1>Automated Faculty Absence & Substitution Management System</h1>
+                    <div class="brand-meta">
+                        Project ID: 006/2024 &nbsp;|&nbsp; Academic Master Schedule
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-status-bar">
+                <div>Day: <strong style="text-transform: capitalize;">{{ session.get('day', 'monday') }}</strong></div>
+                <a href="/back_to_home_page" class="btn btn-secondary btn-sm">Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <h2>Master Timetable: <span style="text-transform: capitalize; color: var(--primary-color);">{{ session.get('day', 'monday') }}</span></h2>
+                    <p>Institutional schedule view for all faculty members on {{ session.get('day', 'monday') | capitalize }}.</p>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <a href="/Download_File" class="btn btn-primary btn-sm">Download CSV</a>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()">Print Timetable</button>
+                    <a href="/back_to_home_page" class="btn btn-secondary btn-sm">Back</a>
+                </div>
+            </div>
+
+            <div class="print-header">
+                <h2>INSTITUTIONAL MASTER TIMETABLE</h2>
+                <p>Day: <strong style="text-transform: uppercase;">{{ session.get('day', 'monday') }}</strong> | Project ID: 006/2024 | Academic Session 2024</p>
+                <hr style="margin: 10px 0;">
+            </div>
+
+            <!-- Dual Interface Mode Switcher -->
+            <div class="view-mode-tabs no-print">
+                <button type="button" id="tabGridBtn" class="view-tab-btn active" onclick="switchView('grid')">
+                    Timetable Grid View (Matrix Design)
+                </button>
+                <button type="button" id="tabListBtn" class="view-tab-btn" onclick="switchView('list')">
+                    Record List View (Detailed Table)
+                </button>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- INTERFACE 1: INSTITUTIONAL TIMETABLE MATRIX (TABLE TYPE DESIGN) -->
+            <!-- ============================================================== -->
+            <div id="interfaceGrid">
+                <div class="table-responsive">
+                    <table class="matrix-grid">
+                        <thead>
+                            <tr>
+                                <th class="grid-header-corner">FACULTY</th>
+                                <th class="period-head">PERIOD 1</th>
+                                <th class="period-head">PERIOD 2</th>
+                                <th class="period-head">PERIOD 3</th>
+                                <th class="period-head">PERIOD 4</th>
+                                <th class="lunch-break-col">RECESS / LUNCH</th>
+                                <th class="period-head">PERIOD 5</th>
+                                <th class="period-head">PERIOD 6</th>
+                                <th class="period-head">PERIOD 7</th>
+                                <th class="period-head">PERIOD 8</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if teachers and teachers|length > 0 %}
+                                {% for teacher in teachers %}
+                                <tr>
+                                    <td class="teacher-name-cell">{{ teacher }}</td>
+                                    {% for p in [1, 2, 3, 4] %}
+                                        {% set cls = matrix_grid[teacher][p] %}
+                                        {% if cls == 'Free' %}
+                                            <td class="slot-free">-</td>
+                                        {% else %}
+                                            <td class="slot-class">{{ cls }}</td>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if loop.first %}
+                                    <td class="lunch-break-col" rowspan="{{ teachers|length }}">
+                                        BREAK
+                                    </td>
+                                    {% endif %}
+
+                                    {% for p in [5, 6, 7, 8] %}
+                                        {% set cls = matrix_grid[teacher][p] %}
+                                        {% if cls == 'Free' %}
+                                            <td class="slot-free">-</td>
+                                        {% else %}
+                                            <td class="slot-class">{{ cls }}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="10" style="padding: 24px; color: var(--mid-gray);">No timetable records recorded for this day.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--mid-gray); margin-top: 8px;">
+                    Legend: Highlighted cell indicates an active teaching period; hyphen (-) indicates a free period available for substitution.
+                </div>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- INTERFACE 2: DETAILED RECORD LIST VIEW (FLAT TABLE DESIGN)     -->
+            <!-- ============================================================== -->
+            <div id="interfaceList" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 10px; flex-wrap: wrap;" class="no-print">
+                    <input type="text" id="scheduleSearch" placeholder="Search by faculty code or class (e.g. kvgs or 11a)..." onkeyup="filterListTable()" style="max-width: 380px;">
+                    <div style="font-size: 0.85rem; color: var(--mid-gray);">
+                        Total Records: <strong id="recordCount">{{ output_list|length }}</strong>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="scheduleTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Faculty / Teacher</th>
+                                <th style="width: 35%;">Class Assignment</th>
+                                <th style="width: 20%;">Period</th>
+                                <th style="width: 20%;">Slot Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in output_list %}
+                            <tr>
+                                <td style="font-family: var(--font-mono); font-weight: 700; color: var(--primary-color);">
+                                    {{ item[0] }}
+                                </td>
+                                <td>
+                                    {% if item[1] is none or item[1]|string|trim == 'null' or item[1]|string|trim == 'null ' or item[1]|string|trim == '' %}
+                                    <span class="badge badge-warning">FREE PERIOD</span>
+                                    {% else %}
+                                    <span class="badge badge-primary">{{ item[1] | upper }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    Period {{ item[2] }}
+                                </td>
+                                <td>
+                                    {% if item[1] is none or item[1]|string|trim == 'null' or item[1]|string|trim == 'null ' or item[1]|string|trim == '' %}
+                                    <span style="color: var(--warning-color); font-size: 0.82rem; font-weight: 600;">Available for Substitution</span>
+                                    {% else %}
+                                    <span style="color: var(--mid-gray); font-size: 0.82rem;">Scheduled Class</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border-color); display: flex; gap: 10px;" class="no-print">
+                <a href="/back_to_home_page" class="btn btn-secondary">Dashboard</a>
+                <a href="/Download_File" class="btn btn-primary">Export Schedule CSV</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div>
+                <strong>Automated Faculty Absence & Substitution Management System</strong>
+            </div>
+            <div style="text-align: right;">
+                Project ID: <code>006/2024</code> · Year: <code>2024</code> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchView(mode) {
+            var gridEl = document.getElementById("interfaceGrid");
+            var listEl = document.getElementById("interfaceList");
+            var gridBtn = document.getElementById("tabGridBtn");
+            var listBtn = document.getElementById("tabListBtn");
+
+            if (mode === 'grid') {
+                gridEl.style.display = "block";
+                listEl.style.display = "none";
+                gridBtn.className = "view-tab-btn active";
+                listBtn.className = "view-tab-btn";
+            } else {
+                gridEl.style.display = "none";
+                listEl.style.display = "block";
+                gridBtn.className = "view-tab-btn";
+                listBtn.className = "view-tab-btn active";
+            }
+        }
+
+        function filterListTable() {
+            var input = document.getElementById("scheduleSearch");
+            var filter = input.value.toLowerCase();
+            var table = document.getElementById("scheduleTable");
+            if (!table) return;
+            var tr = table.getElementsByTagName("tr");
+            var visibleCount = 0;
+
+            for (var i = 1; i < tr.length; i++) {
+                var text = tr[i].textContent || tr[i].innerText;
+                if (text.toLowerCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    visibleCount++;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+            document.getElementById("recordCount").innerText = visibleCount;
+        }
+    </script>
+</body>
+</html>

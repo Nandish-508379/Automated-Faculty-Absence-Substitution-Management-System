@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARRANGEMENTS INPUT PAGE</title>
+</head>
+<body>
+    <h1>Arrangements</h1>
+    <form action="/DO_ARRANGEMENT" method="post">
+
+        <label for="day">Select a day:</label>
+        <select name="day" id="arr_day">
+            <option value="monday">monday</option>
+            <option value="tuesday">tuesday</option>
+            <option value="wednesday">wednesday</option>
+            <option value="thursday">thursday</option>
+            <option value="friday">friday</option>
+            <option value="saturday">saturday</option>
+        </select>
+        <br>
+        <label for="absent_teacher">absent_teacher:</label><br>
+        <input type="text" id="absent_teacher" name="absent_teacher" required>
+        <br>
+        <input type="submit" value="do Arrangements">
+    </form>
+    <form action="/back_to_home_page" method="get">
+        <input type="submit" value="back to home page">
+    </form>
+</body>
+</html>

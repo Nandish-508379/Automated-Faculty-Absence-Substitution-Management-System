@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrangements</title>
+</head>
+<body>
+    <h1>Arrangements</h1>
+    <form action="/do_arrangement" method="post">
+        <label for="day">Select a day:</label>
+        <select name="day" id="day">
+            <option value="monday">monday</option>
+            <option value="tuesday">tuesday</option>
+            <option value="wednesday">wednesday</option>
+            <option value="thursday">thursday</option>
+            <option value="friday">friday</option>
+            <option value="saturday">saturday</option>
+        </select>
+        <br>
+        <label for="absent_teacher">absent_teacher:</label><br>
+        <input type="text" id="absent_teacher" name="absent_teacher" required>
+        <br>
+        <input type="submit" value="do_arrangement">
+    </form>
+</body>
+</html>

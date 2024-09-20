@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Automated Faculty Absence & Substitution Management System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-card" style="max-width: 480px;">
+            <div class="auth-header">
+                <h2>Portal Authentication</h2>
+                <p>Automated Faculty Absence & Substitution Management System</p>
+                <div style="margin-top: 6px;">
+                    <span class="badge badge-primary">Project ID: 006/2024</span>
+                </div>
+            </div>
+
+            <!-- Visible Academic Lineage Section -->
+            <div style="background-color: #ebf8ff; border: 1px solid #bee3f8; border-left: 4px solid var(--secondary-color); padding: 12px 14px; border-radius: var(--border-radius); margin-bottom: 20px; font-size: 0.82rem; color: #2c5282;">
+                <div style="font-weight: 700; margin-bottom: 5px; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.03em;">
+                    Academic Lineage & Development History:
+                </div>
+                <div style="line-height: 1.5;">
+                    <div>• <strong>2022:</strong> Class 12 Computer Science Mini Project — Kendriya Vidyalaya AFS Yelahanka</div>
+                    <div>• <strong>2023:</strong> Web Integration for Intro to Web Development Course — MSRIT</div>
+                    <div>• <strong>2024:</strong> Enterprise Edition — Smart India Hackathon Presentation (Project ID: 006/2024)</div>
+                </div>
+            </div>
+
+            {% if error %}
+            <div class="alert alert-danger">
+                <span>{{ error }}</span>
+            </div>
+            {% endif %}
+
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter username" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="day">Session Day</label>
+                    <select name="day" id="day" required>
+                        <option value="monday">Monday</option>
+                        <option value="tuesday">Tuesday</option>
+                        <option value="wednesday">Wednesday</option>
+                        <option value="thursday">Thursday</option>
+                        <option value="friday">Friday</option>
+                        <option value="saturday">Saturday</option>
+                    </select>
+                </div>
+
+                <div style="margin-top: 22px;">
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </div>
+            </form>
+
+            <div style="margin-top: 24px; text-align: center; font-size: 0.75rem; color: var(--mid-gray); border-top: 1px solid var(--light-gray); padding-top: 12px;">
+                Automated Faculty Absence & Substitution Management System · Project ID: 006/2024 · All Rights Reserved
+            </div>
+        </div>
+    </div>
+</body>
+</html>

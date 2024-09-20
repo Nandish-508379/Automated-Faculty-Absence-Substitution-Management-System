@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADD NEW USER</title>
+</head>
+<body>
+    <H2>ADD NEW USER</H2>
+    <form action="/ADD_USER" method="post">
+        <label for="Newusername">Username:</label><br>
+        <input type="text" id="Newusername" name="Newusername" required><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <label for="role">Select The Role Of User:</label><br>
+        <select name="role" id="role" required>
+            <option value="U">USER</option>
+            <option value="A">ADMIN</option>
+        </select>
+        <br><br>
+        <h5>For security reasons you will be logged out!</h5>
+        <input type="submit" value="submit">
+    </form>
+    <br>
+    <form action="/back_to_home_page" method="get">
+        <input type="submit" value="back to home page">
+    </form>
+</body>
+</html>

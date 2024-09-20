@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Automated Faculty Absence & Substitution Management System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-group">
+                <div class="brand-text">
+                    <h1>Automated Faculty Absence & Substitution Management System</h1>
+                    <div class="brand-meta">
+                        Project ID: 006/2024 &nbsp;|&nbsp; Academic Year: 2024 &nbsp;|&nbsp; Administrator Mode
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-status-bar">
+                <div>User: <strong>{{ user[0] }}</strong></div>
+                <div>Role: <strong>{{ 'Administrator' if user[2] == 'A' else 'Faculty User' }}</strong></div>
+                <div>Session Day: <strong style="text-transform: capitalize;">{{ user[3] }}</strong></div>
+                <div style="display: flex; gap: 6px; margin-left: 6px;">
+                    <a href="/Change_Password" class="btn btn-secondary btn-sm">Password</a>
+                    <a href="/Logout" class="btn btn-danger btn-sm">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card" style="border-left: 4px solid var(--primary-color);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--primary-color);">Administrative Control Panel</h2>
+                    <p style="color: var(--mid-gray); font-size: 0.88rem; margin-top: 3px;">
+                        Manage institutional faculty schedules, compute leave substitutions, and oversee user access.
+                    </p>
+                </div>
+                <div>
+                    <span class="badge badge-primary" style="font-size: 0.82rem; padding: 6px 12px;">Active Day: {{ user[3] | upper }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Timetable & Arrangement Operations -->
+        <div class="section-title">Faculty Substitution & Timetable Operations</div>
+        
+        <div class="dashboard-grid">
+            <!-- Faculty Arrangements -->
+            <div class="action-card">
+                <div>
+                    <h3>Faculty Arrangements</h3>
+                    <p>Detect absent faculty and generate period-by-period substitute assignments with zero collision.</p>
+                </div>
+                <a href="/do_arrangement" class="btn btn-primary btn-block">Compute Arrangements</a>
+            </div>
+
+            <!-- View & Export Schedule -->
+            <div class="action-card">
+                <div>
+                    <h3>Master Timetable</h3>
+                    <p>Display full master schedule for {{ user[3] | capitalize }} in List View or Classic Matrix Grid. Download CSV or print slips.</p>
+                </div>
+                <a href="/VIEW_TIMETABLE" class="btn btn-primary btn-block">View Master Timetable</a>
+            </div>
+
+            <!-- Import Data -->
+            <div class="action-card">
+                <div>
+                    <h3>Import Timetable Data</h3>
+                    <p>Upload new timetable records via CSV file upload or select local workspace datasets.</p>
+                </div>
+                <a href="/INSERT_DATA" class="btn btn-secondary btn-block">Import CSV Records</a>
+            </div>
+        </div>
+
+        <!-- Section 2: Administrative Controls -->
+        <div class="section-title">System Administration & Data Management</div>
+
+        <div class="dashboard-grid">
+            <!-- Add User -->
+            <div class="action-card">
+                <div>
+                    <h3>Add New User</h3>
+                    <p>Provision credentials and privileges for administrative staff or faculty accounts.</p>
+                </div>
+                <a href="/ADD_USER" class="btn btn-secondary btn-block">Add User</a>
+            </div>
+
+            <!-- Remove User -->
+            <div class="action-card danger">
+                <div>
+                    <h3>Remove User</h3>
+                    <p>Revoke credentials and system access for an existing faculty or administrator account.</p>
+                </div>
+                <a href="/REMOVE_USER" class="btn btn-secondary btn-block" style="color: var(--danger-color);">Remove User</a>
+            </div>
+
+            <!-- Remove Faculty Schedule -->
+            <div class="action-card danger">
+                <div>
+                    <h3>Remove Teacher Schedule</h3>
+                    <p>Delete all assigned periods for a designated faculty member on {{ user[3] | capitalize }}.</p>
+                </div>
+                <a href="/REMOVE_TEACHER_DATA" class="btn btn-secondary btn-block" style="color: var(--danger-color);">Remove Teacher Records</a>
+            </div>
+
+            <!-- Delete Day Timetable -->
+            <div class="action-card danger">
+                <div>
+                    <h3>Purge Day Schedule</h3>
+                    <p>Completely clear all faculty timetable assignments for a designated day of the week.</p>
+                </div>
+                <a href="/DELETE_COMPLETE_DAY" class="btn btn-danger btn-block">Purge Day Timetable</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div>
+                <strong>Automated Faculty Absence & Substitution Management System</strong>
+            </div>
+            <div style="text-align: right;">
+                Project ID: <code>006/2024</code> · Year: <code>2024</code> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password | Automated Faculty Absence & Substitution Management System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-group">
+                <div class="brand-text">
+                    <h1>Automated Faculty Absence & Substitution Management System</h1>
+                    <div class="brand-meta">
+                        Project ID: 006/2024 &nbsp;|&nbsp; Security & Credentials
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-status-bar">
+                <div>User: <strong>{{ session.get('username') }}</strong></div>
+                <a href="/back_to_home_page" class="btn btn-secondary btn-sm">Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="max-width: 500px; margin: 20px auto 0;">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Update Account Password</h2>
+                        <p>Modify password for user <strong>{{ session.get('username') }}</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    Notice: After updating password, you will be redirected to the login screen.
+                </div>
+
+                <form action="/Change_Password" method="POST">
+                    <div class="form-group">
+                        <label for="New_PWD_1">New Password</label>
+                        <input type="password" id="New_PWD_1" name="New_PWD_1" placeholder="Enter new password" required autofocus>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 24px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 2;">Save Password</button>
+                        <a href="/back_to_home_page" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div>
+                <strong>Automated Faculty Absence & Substitution Management System</strong>
+            </div>
+            <div style="text-align: right;">
+                Project ID: <code>006/2024</code> · Year: <code>2024</code> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

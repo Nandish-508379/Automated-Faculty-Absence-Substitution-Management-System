@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <h1>WELCOME TO ARRANGEMENT TIMETABLE MANAGEMENT SOFTWARE</h1>
+    <hr>
+</head>
+<body>
+    <h3><u><b>CURRENT USER DETAILS-</b></u></h3>
+    <h4>USERNAME- {{ user[0] }} </h4>
+    <h4>CURRENT ROLE- {{ user[2] }}</h4>
+    <form action="/Logout" method="get">
+        <input type="submit" value="LOG OUT">
+    </form>
+    
+    <hr>
+    <h5>WORKING--</h5>
+    <!-- Button to run backend -->
+    <form action="/do_arrangement" method="get">
+        <input type="submit" value="Do Arrangements">
+    </form>
+
+    <hr>
+    <h5>UNDER DEVELOPMENT--</h5>
+    <form action="/VIEW_TIMETABLE" method="get">
+        <input type="submit" value="View Timetable">
+    </form>
+
+
+
+    <form action="/Add_User" method="get">
+        <input type="submit" value="Add User">
+    </form>
+    <form action="/Remove_User" method="get">
+        <input type="submit" value="Remove User">
+    </form>
+
+<hr>
+</body>
+</html>

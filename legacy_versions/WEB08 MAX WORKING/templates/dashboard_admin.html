@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <h1>WELCOME TO ARRANGEMENT TIMETABLE MANAGEMENT SOFTWARE</h1>
+    <hr>
+</head>
+<body>
+    <h3><u><b>CURRENT USER DETAILS-</b></u></h3>
+    <h4>USERNAME- {{ user[0] }} </h4>
+    <h4>CURRENT ROLE- {{ user[2] }}</h4>
+    <h4>SELECTED LOGIN DAY -{{  user[3]  }}</h4>
+    <form action="/Logout" method="get">
+        <input type="submit" value="LOG OUT">
+    </form><BR>
+    <form action="/Change_Password" method="get">
+        <input type="submit" value="CHANGE PASSWORD">
+    </form>
+    
+    <hr>
+    <h5>WORKING--</h5>
+    <!-- Button to run backend -->
+    <form action="/DO_ARRANGEMENT" method="get">
+        <input type="submit" value="Do Arrangements">
+    </form>
+    <br>
+    <form action="/VIEW_TIMETABLE" method="get">
+        <input type="submit" value="View And Print Timetable">
+    </form>
+    <br>
+    <form action="/ADD_USER" method="get">
+        <input type="submit" value="Add User">
+    </form>
+    <br>
+    <form action="/REMOVE_USER" method="get">
+        <input type="submit" value="Remove User">
+    </form><br>
+    <form action="/INSERT_DATA" method="get">
+        <input type="submit" value="Insert Data">
+    <br><hr>
+    <h5>UNDER DEVELOPMENT--</h5>
+    </form>
+    <form action="/REMOVE_TEACHER_DATA" method="get">
+        <input type="submit" value="Remove Teacher Data">
+    </form>
+    <form action="/Delete_Complete_Day" method="get">
+        <input type="submit" value="Delete Complete Day">
+    </form>
+    
+<hr>
+</body>
+</html>

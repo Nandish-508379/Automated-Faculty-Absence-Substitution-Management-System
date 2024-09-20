@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User | Automated Faculty Absence & Substitution Management System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-group">
+                <div class="brand-text">
+                    <h1>Automated Faculty Absence & Substitution Management System</h1>
+                    <div class="brand-meta">
+                        Project ID: 006/2024 &nbsp;|&nbsp; User Account Provisioning
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-status-bar">
+                <div>Administrator</div>
+                <a href="/back_to_home_page" class="btn btn-secondary btn-sm">Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="max-width: 540px; margin: 20px auto 0;">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Create New User Account</h2>
+                        <p>Provision access credentials for administrative staff or faculty.</p>
+                    </div>
+                </div>
+
+                <form action="/ADD_USER" method="post">
+                    <div class="form-group">
+                        <label for="Newusername">Account Username</label>
+                        <input type="text" id="Newusername" name="Newusername" placeholder="Enter username" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Account Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">User Role</label>
+                        <select name="role" id="role" required>
+                            <option value="U">Standard Faculty User (View & Print Only)</option>
+                            <option value="A">Administrator (Full Administrative Access)</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; margin-top: 24px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 2;">Provision User</button>
+                        <a href="/back_to_home_page" class="btn btn-secondary" style="flex: 1;">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-inner">
+            <div>
+                <strong>Automated Faculty Absence & Substitution Management System</strong>
+            </div>
+            <div style="text-align: right;">
+                Project ID: <code>006/2024</code> · Year: <code>2024</code> · All Rights Reserved
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

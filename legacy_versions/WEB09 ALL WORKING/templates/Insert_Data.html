@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSERT DATA PAGE</title>
+</head>
+<body>
+    <h1>INSERT DATA USING CSV FILE</h1>
+    <form action="/INSERT_DATA" method="post">
+
+        <label for="insert_day">Select a day:</label>
+        <select name="insert_day" id="insert_day">
+            <option value="monday">monday</option>
+            <option value="tuesday">tuesday</option>
+            <option value="wednesday">wednesday</option>
+            <option value="thursday">thursday</option>
+            <option value="friday">friday</option>
+            <option value="saturday">saturday</option>
+        </select>
+        <br>
+        <label for="locatio">COMPLETE LOCATION OF FILE (with extension .csv):</label>
+        <h3>example- C:\Users\nandi\OneDrive\Desktop\newrec.csv </h3>
+        <input type="text" id="locatio" name="locatio" required>
+        <br>
+        <input type="submit" value="INSERT DATA INTO THE SYSTEM">
+    </form>
+<br>
+<hr>
+<h1>ENTER TIMETABLE MANUALLY [for 8 session per day basis]</h1>
+
+
+
+
+
+
+<br>
+<hr>
+<form action="/back_to_home_page" method="get">
+    <input type="submit" value="back to home page">
+</form>
+</body>
+</html>

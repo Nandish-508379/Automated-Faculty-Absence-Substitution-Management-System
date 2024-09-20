@@ -1,0 +1,39 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# Sensitive environment configuration
+.env
+*.env.local
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Exported runtime generated files
+Download_files/*.csv
+!Download_files/2024-05-04.csv
+!Download_files/.gitkeep
+
+# IDE and Editor configuration
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Complete Day Page</title>
+</head>
+<body>
+<h1>Delete Complete Day Page</h1>
+<form action="/DELETE_COMPLETE_DAY" method="POST">
+    <label for="Selete_Day_del">Select a user to remove:</label>
+    <select name="Selete_Day_del" id="Selete_Day_del" required>
+        <option value="monday">monday</option>
+        <option value="tuesday">tuesday</option>
+        <option value="wednesday">wednesday</option>
+        <option value="thursday">thursday</option>
+        <option value="friday">friday</option>
+        <option value="saturday">saturday</option>
+    </select>
+    <h5>ON SUCCESSFULL REMOVAL THIS SESSION WILL BE TERMINATED</h5>
+    <HR>
+    <input ID ="SUBMIT_BUTTON" type="submit" value="YES DELETE THE SELECTED DAY TIMETABLE">
+</form>
+<br><br>
+<form action="/back_to_home_page" method="get">
+    <input type="submit" value="back to home page">
+</form>
+</body>
+</html>
