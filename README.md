@@ -3,15 +3,15 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![Project ID](https://img.shields.io/badge/Project%20ID-006%2F2024-blue.svg)](#)
 [![Year of Project](https://img.shields.io/badge/Year%20of%20Project-2024-green.svg)](#)
-[![Edition](https://img.shields.io/badge/Edition-Enterprise%20Production%20Release-orange.svg)](#)
+[![Edition](https://img.shields.io/badge/Edition-SIH%20Production%20Release-orange.svg)](#)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary%20%7C%20All%20Rights%20Reserved-red.svg)](LICENSE)
 [![Usage](https://img.shields.io/badge/Commercial%20Use-Strictly%20Prohibited-critical.svg)](LICENSE)
 [![Permission](https://img.shields.io/badge/Copy%2FEdit%2FUse-Written%20Permission%20Required-yellow.svg)](LICENSE)
 [![Architecture](https://img.shields.io/badge/Database-Dual%20Engine%20(MySQL%20%2B%20SQLite%20Failover)-blueviolet.svg)](#)
 [![Framework](https://img.shields.io/badge/Framework-Flask%20WSGI%20Engine-informational.svg)](#)
-[![Institution](https://img.shields.io/badge/Academic%20Heritage-KV%20AFS%20(2022)%20%E2%86%92%20MSRIT%20(2023)%20%E2%86%92%20Enterprise%20(2024)-success.svg)](#)
+[![Institution](https://img.shields.io/badge/Academic%20Heritage-KV%20AFS%20(2022)%20%E2%86%92%20MSRIT%20(2023)%20%E2%86%92%20SIH%20(2024)-success.svg)](#)
 
-> **Academic Enterprise Project** | **Project ID: 006/2024** | **Year of Project: 2024**  
+> **Academic SIH Project** | **Project ID: 006/2024** | **Year of Project: 2024**  
 > **Author & Rights Holder**: **M NANDISH** (USN: `1MS23ET073`), Department of Electronics & Telecommunication Engineering, Ramaiah Institute of Technology (MSRIT), Bengaluru, Karnataka, India.  
 > An automated, algorithmic web-based institutional timetable scheduling and faculty substitution management platform. Engineered to eliminate administrative disruption caused by daily faculty absenteeism across high schools and collegiate departments, the system processes institutional master schedules across 6-day cycles (8 periods/day), calculates clash-free substitute faculty allocations in sub-50 ms deterministic execution time, provides dual-interface timetable visualization (institutional matrix grid and searchable records), and features a resilient dual-database engine with seamless automatic failover between MySQL 8.0 and zero-configuration SQLite.
 
@@ -19,8 +19,8 @@
 
 > [!IMPORTANT]
 > **Academic Integrity, Lineage & Operational Disclaimer**:  
-> - **Multi-Year Developmental Genesis**: This system originated as a Class 12 CBSE Computer Science Mini Project at **Kendriya Vidyalaya AFS Yelahanka, Bengaluru (2022)**, was integrated into a modular web framework during the *Introduction to Web Development* course at **Ramaiah Institute of Technology (MSRIT, 2023)**, and was fully engineered into an enterprise dual-database production platform (Project ID: 006/2024).
-> - **Core Foundational Repository (2022)**: [Nandish-508379/ABSENT-TEACHER-ARRANGEMENT-MANAGEMENT-SYSTEM-LEGACY: ABSENT TEACHER ARRANGEMENT MANAGEMENT SYSTEM (LEGACY) - Class 12 CBSE Computer Science Investigatory Project (2022)](https://github.com/Nandish-508379/ABSENT-TEACHER-ARRANGEMENT-MANAGEMENT-SYSTEM-LEGACY)
+> - **Multi-Year Developmental Genesis**: This system originated as a Class 12 CBSE Computer Science Mini Project at **Kendriya Vidyalaya AFS Yelahanka, Bengaluru (2022)**, was integrated into a modular web framework during the *Introduction to Web Development* course at **Ramaiah Institute of Technology (MSRIT, 2023)**, and was fully engineered into a dual-database production platform for Smart India Hackathon (SIH 2024, Project ID: 006/2024).
+> - **Core Foundational Repository (2022)**: [Nandish-508379/Absent-Teacher-Arrangement-Mangement-System-CORE-LEGACY](https://github.com/Nandish-508379/Absent-Teacher-Arrangement-Mangement-System-CORE-LEGACY)
 > - **Dual-Engine Standalone Testing**: If a local MySQL server is not detected on port 3306, the platform activates its embedded SQLite engine (`timetable.db`), generates all 6 weekday tables, provisions default administrative and faculty accounts, and automatically seeds initial master schedule records from `INITIALISE/newrecc.csv` for immediate out-of-the-box operation.
 > - **Proprietary & Non-Commercial Rights**: All architectural designs, algorithmic workflows, user interface styling, database schemas, and documentation are the proprietary intellectual property of **M Nandish**. Any reproduction, editing, copying, updating, or commercial deployment requires the prior explicit written and exclusive permission of the author.
 
@@ -34,7 +34,7 @@ The production web portal features a human-crafted 2024 institutional design sys
 | Portal Authentication & Academic Lineage Banner | Primary Administrative Control Center |
 | :---: | :---: |
 | ![Portal Authentication](docs/screenshots/01_login_page.png) | ![Administrative Dashboard](docs/screenshots/02_admin_dashboard.png) |
-| *Role-based login interface displaying the official Project ID: 006/2024 badge, session day selector, and academic lineage notice (KV AFS Yelahanka 2022 → MSRIT 2023 → Enterprise 2024).* | *Administrator workspace providing quick-access cards for clash-free substitution computation, master schedule viewing, CSV data ingestion, user provisioning, and schedule purging.* |
+| *Role-based login interface displaying the official Project ID: 006/2024 badge, session day selector, and academic lineage notice (KV AFS Yelahanka 2022 → MSRIT 2023 → SIH 2024).* | *Administrator workspace providing quick-access cards for clash-free substitution computation, master schedule viewing, CSV data ingestion, user provisioning, and schedule purging.* |
 
 ### 2. Faculty Portal & Substitution Allocation Request
 | Faculty & User Self-Service Portal | Faculty Absence Registration Console |
@@ -185,7 +185,7 @@ graph TD
     - [3. Free Faculty Candidate Pool Generation](#3-free-faculty-candidate-pool-generation)
     - [4. Clash-Free Assignment Function \& Constraint Optimization](#4-clash-free-assignment-function--constraint-optimization)
     - [5. Computational Complexity Analysis](#5-computational-complexity-analysis)
-  - [🔄 Multi-Year System Evolution: 2022 CLI Prototype to 2024 Enterprise Web System](#-multi-year-system-evolution-2022-cli-prototype-to-2024-enterprise-web-system)
+  - [🔄 Multi-Year System Evolution: 2022 CLI Prototype to 2024 SIH Web System](#-multi-year-system-evolution-2022-cli-prototype-to-2024-sih-web-system)
     - [Comparative Milestone Analysis](#comparative-milestone-analysis)
     - [Detailed Version Roadmap (WEB01 through WEB10)](#detailed-version-roadmap-web01-through-web10)
   - [📂 Repository Structure \& Comprehensive File Map](#-repository-structure--comprehensive-file-map)
@@ -526,16 +526,16 @@ For an institutional department of $N = 50$ teachers and $|P| = 8$ periods ($|S_
 
 ---
 
-## 🔄 Multi-Year System Evolution: 2022 CLI Prototype to 2024 Enterprise Web System
+## 🔄 Multi-Year System Evolution: 2022 CLI Prototype to 2024 SIH Web System
 
-The platform has undergone a structured multi-year development trajectory from a school mini project to an enterprise-grade hackathon presentation platform:
+The platform has undergone a structured multi-year development trajectory from a school mini project to a comprehensive hackathon presentation platform:
 
 ### Comparative Milestone Analysis
 
-| Feature Dimension | 2022 CLI Prototype (Class 12) | 2023 Web Prototype (MSRIT) | 2024 Production Enterprise Release |
+| Feature Dimension | 2022 CLI Prototype (Class 12) | 2023 Web Prototype (MSRIT) | 2024 Production Release (SIH) |
 | :--- | :--- | :--- | :--- |
 | **Project Code / ID** | CS Mini Project 2022 | Web Dev Course 2023 | **Project ID: 006/2024** |
-| **Host Institution** | Kendriya Vidyalaya AFS Yelahanka | Ramaiah Institute of Technology | **Enterprise Production Edition** |
+| **Host Institution** | Kendriya Vidyalaya AFS Yelahanka | Ramaiah Institute of Technology | **Smart India Hackathon (SIH 2024)** |
 | **Runtime Architecture** | Standalone Python Script (`main.py`) | Basic Flask Application (`WEB01`-`WEB07`) | **Dual-Engine Production WSGI Platform** |
 | **Database Support** | Hardcoded MySQL credentials | Fixed MySQL connection | **MySQL 8.0 + Zero-Config SQLite Fallback** |
 | **UI Paradigm** | Terminal CLI Text Prompts | Basic Unstyled HTML Forms | **Dual-Interface Matrix Grid + Searchable List** |
@@ -710,7 +710,7 @@ Double-click [`run.bat`](run.bat) in the root directory. The script validates th
 ### 2. Manual Virtual Environment Setup
 1. Clone the repository and navigate into the workspace:
    ```bash
-   git clone https://github.com/<your-username>/Automated-Faculty-Absence-Substitution-Management-System.git
+   git clone https://github.com/Nandish-508379/Automated-Faculty-Absence-Substitution-Management-System.git
    cd "Automated-Faculty-Absence-Substitution-Management-System"
    ```
 2. Create and activate a Python virtual environment:
@@ -788,7 +788,7 @@ For licensing authorizations, contact the author directly at: `nandish508379@gma
 - **Foundational Lineage**: Kendriya Vidyalaya AFS Yelahanka, Bengaluru (Class 12, 2022)
 - **Academic Milestone**: Web Development Course, MSRIT (2023)
 - **Competition Milestone**: Smart India Hackathon Presentation Edition (2024)
-- **Foundational Core System (2022)**: [Nandish-508379/ABSENT-TEACHER-ARRANGEMENT-MANAGEMENT-SYSTEM-LEGACY](https://github.com/Nandish-508379/ABSENT-TEACHER-ARRANGEMENT-MANAGEMENT-SYSTEM-LEGACY)
+- **Foundational Core System (2022)**: [Nandish-508379/Absent-Teacher-Arrangement-Mangement-System-CORE-LEGACY](https://github.com/Nandish-508379/Absent-Teacher-Arrangement-Mangement-System-CORE-LEGACY)
 - **Project ID**: `006/2024`
 - **Project Title**: Automated Faculty Absence & Substitution Management System
 - **Creation Year**: `2024`
