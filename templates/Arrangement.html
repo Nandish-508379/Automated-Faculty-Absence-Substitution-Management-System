@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty Arrangements | Automated Faculty Absence & Substitution Management System</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .quick-select-badge {
+            display: inline-block;
+            background: var(--light-gray);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            margin: 3px;
+        }
+        .quick-select-badge:hover {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+        }
+    </style>
 </head>
 <body>
     <header class="app-header">
@@ -13,7 +33,7 @@
                 <div class="brand-text">
                     <h1>Automated Faculty Absence & Substitution Management System</h1>
                     <div class="brand-meta">
-                        Project ID: 006/2024 &nbsp;|&nbsp; Substitution Allocation Panel
+                        Project ID: 006/2024 &nbsp;|&nbsp; Substitution Allocation Console
                     </div>
                 </div>
             </div>
@@ -26,27 +46,28 @@
     </header>
 
     <main class="container">
-        <div style="max-width: 650px; margin: 20px auto 0;">
+        <div style="max-width: 720px; margin: 20px auto 0;">
             <div class="card">
                 <div class="card-header">
                     <div>
-                        <h2>Compute Faculty Arrangements</h2>
-                        <p>Generate substitute faculty allocations for absent teachers on a designated day.</p>
+                        <h2>Faculty Absence Registration Console</h2>
+                        <p>Initiate algorithmic substitute faculty allocation for absent teachers on a designated day.</p>
                     </div>
+                    <span class="badge badge-primary">Clash-Free Engine</span>
                 </div>
 
                 <div class="alert alert-info">
-                    <strong>Substitution Processing Rules:</strong>
+                    <strong>Algorithmic Substitution Rules & Logic:</strong>
                     <ol style="margin-left: 18px; margin-top: 6px; font-size: 0.86rem; line-height: 1.5;">
-                        <li>Select the target day and enter the absent teacher's code (e.g. <code>kvgs</code>, <code>sj</code>, <code>anu</code>, <code>gn</code>, <code>him</code>).</li>
-                        <li>The system detects all periods where the faculty has assigned classes.</li>
-                        <li>It identifies all available teachers with free slots during those periods and creates the substitution matrix.</li>
+                        <li><strong>Step 1 (Absence Detection):</strong> Identifies all instructional periods where the absent faculty member has assigned classes on the chosen day.</li>
+                        <li><strong>Step 2 (Free Pool Extraction):</strong> Scans the master timetable to locate faculty members with free periods (<code>class = 'null'</code>) during those exact slots.</li>
+                        <li><strong>Step 3 (Clash-Free Assignment):</strong> Maps free faculty to absent periods, guaranteeing zero double-booking collisions, and compiles the color-coded substitution matrix.</li>
                     </ol>
                 </div>
 
-                <form action="/do_arrangement" method="post">
+                <form action="/do_arrangement" method="post" id="arrangementForm">
                     <div class="form-group">
-                        <label for="day">Target Day</label>
+                        <label for="day">Operational Day</label>
                         <select name="day" id="day" required>
                             <option value="monday" {% if session.get('day') == 'monday' %}selected{% endif %}>Monday</option>
                             <option value="tuesday" {% if session.get('day') == 'tuesday' %}selected{% endif %}>Tuesday</option>
@@ -58,12 +79,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="absent_teacher">Absent Teacher Code / Name</label>
-                        <input type="text" id="absent_teacher" name="absent_teacher" placeholder="e.g. kvgs or sj" required autofocus>
+                        <label for="absent_teacher">Absent Faculty Code / Name</label>
+                        <input type="text" id="absent_teacher" name="absent_teacher" placeholder="e.g. kvgs, sj, anu, gn, him" required autofocus autocomplete="off">
+                        
+                        <div style="margin-top: 8px;">
+                            <span style="font-size: 0.8rem; color: var(--mid-gray); margin-right: 6px;">Quick-Select Scheduled Faculty:</span>
+                            <span class="quick-select-badge" onclick="selectTeacher('kvgs')">kvgs</span>
+                            <span class="quick-select-badge" onclick="selectTeacher('sj')">sj</span>
+                            <span class="quick-select-badge" onclick="selectTeacher('anu')">anu</span>
+                            <span class="quick-select-badge" onclick="selectTeacher('gn')">gn</span>
+                            <span class="quick-select-badge" onclick="selectTeacher('him')">him</span>
+                        </div>
                     </div>
 
-                    <div style="display: flex; gap: 10px; margin-top: 22px;">
-                        <button type="submit" class="btn btn-primary" style="flex: 2;">Compute Arrangements</button>
+                    <div style="display: flex; gap: 10px; margin-top: 24px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 2;">Compute Clash-Free Arrangements</button>
                         <a href="/back_to_home_page" class="btn btn-secondary" style="flex: 1;">Cancel</a>
                     </div>
                 </form>
@@ -81,5 +111,13 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        function selectTeacher(code) {
+            var input = document.getElementById('absent_teacher');
+            input.value = code;
+            input.focus();
+        }
+    </script>
 </body>
 </html>

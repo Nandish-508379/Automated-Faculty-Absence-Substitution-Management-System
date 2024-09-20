@@ -13,40 +13,64 @@
                 <div class="brand-text">
                     <h1>Automated Faculty Absence & Substitution Management System</h1>
                     <div class="brand-meta">
-                        Project ID: 006/2024 &nbsp;|&nbsp; Security & Credentials
+                        Project ID: 006/2024 &nbsp;|&nbsp; Security & Credentials Update
                     </div>
                 </div>
             </div>
 
             <div class="user-status-bar">
-                <div>User: <strong>{{ session.get('username') }}</strong></div>
+                <div>User: <strong>{{ session.get('username') }}</strong> &nbsp;|&nbsp; Role: <strong>{{ 'Administrator' if session.get('role') == 'A' else 'Faculty / User' }}</strong></div>
                 <a href="/back_to_home_page" class="btn btn-secondary btn-sm">Dashboard</a>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <div style="max-width: 500px; margin: 20px auto 0;">
+        <div style="max-width: 620px; margin: 20px auto 0;">
             <div class="card">
                 <div class="card-header">
                     <div>
-                        <h2>Update Account Password</h2>
-                        <p>Modify password for user <strong>{{ session.get('username') }}</strong>.</p>
+                        <h2>Credential & Password Update Screen</h2>
+                        <p>Modify access credentials for authenticated account <strong>{{ session.get('username') }}</strong>.</p>
                     </div>
+                    <span class="badge badge-primary">Security Portal</span>
                 </div>
 
                 <div class="alert alert-info">
-                    Notice: After updating password, you will be redirected to the login screen.
+                    <strong>Account Security Guidelines:</strong>
+                    <ul style="margin-left: 18px; margin-top: 6px; font-size: 0.85rem; line-height: 1.4;">
+                        <li>Ensure passwords contain a combination of letters, numbers, and symbols.</li>
+                        <li>After updating credentials, your active session will be invalidated and you will be redirected to the authentication portal.</li>
+                    </ul>
                 </div>
 
-                <form action="/Change_Password" method="POST">
+                <form action="/Change_Password" method="POST" id="changePwdForm" onsubmit="return validatePasswordMatch()">
+                    <div class="form-group">
+                        <label for="current_user_display">Account Username</label>
+                        <input type="text" id="current_user_display" value="{{ session.get('username') }}" disabled style="background: var(--light-gray); color: var(--mid-gray);">
+                    </div>
+
                     <div class="form-group">
                         <label for="New_PWD_1">New Password</label>
-                        <input type="password" id="New_PWD_1" name="New_PWD_1" placeholder="Enter new password" required autofocus>
+                        <input type="password" id="New_PWD_1" name="New_PWD_1" placeholder="Enter new account password" required autofocus>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="New_PWD_2">Confirm New Password</label>
+                        <input type="password" id="New_PWD_2" placeholder="Re-enter new account password" required>
+                        <div id="pwdError" style="color: var(--danger-color); font-size: 0.82rem; margin-top: 4px; display: none;">
+                            Passwords do not match. Please verify and re-enter.
+                        </div>
+                    </div>
+
+                    <div style="margin: 12px 0;">
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; cursor: pointer; color: var(--text-color);">
+                            <input type="checkbox" id="toggleShow" onchange="togglePasswordVisibility()"> Show password characters
+                        </label>
                     </div>
 
                     <div style="display: flex; gap: 10px; margin-top: 24px;">
-                        <button type="submit" class="btn btn-primary" style="flex: 2;">Save Password</button>
+                        <button type="submit" class="btn btn-primary" style="flex: 2;">Save New Password</button>
                         <a href="/back_to_home_page" class="btn btn-secondary" style="flex: 1;">Cancel</a>
                     </div>
                 </form>
@@ -64,5 +88,27 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        function togglePasswordVisibility() {
+            var p1 = document.getElementById('New_PWD_1');
+            var p2 = document.getElementById('New_PWD_2');
+            var isChecked = document.getElementById('toggleShow').checked;
+            p1.type = isChecked ? 'text' : 'password';
+            p2.type = isChecked ? 'text' : 'password';
+        }
+
+        function validatePasswordMatch() {
+            var p1 = document.getElementById('New_PWD_1').value;
+            var p2 = document.getElementById('New_PWD_2').value;
+            var err = document.getElementById('pwdError');
+            if (p1 !== p2) {
+                err.style.display = 'block';
+                return false;
+            }
+            err.style.display = 'none';
+            return true;
+        }
+    </script>
 </body>
 </html>
