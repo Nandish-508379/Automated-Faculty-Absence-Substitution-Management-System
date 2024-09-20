@@ -2,8 +2,15 @@
 =============================================================================
 AUTOMATED FACULTY ABSENCE & SUBSTITUTION MANAGEMENT SYSTEM
 Project ID: 006/2024 | Year: 2024
-Author: M Nandish | All Rights Reserved
+Author & Rights Holder: M Nandish
 Smart India Hackathon Presentation Edition
+
+PROPRIETARY & NON-COMMERCIAL NOTICE:
+Copyright (c) 2024 M Nandish. All Rights Reserved.
+Any copying, reproduction, editing, modification, updating, redistribution,
+or use of this software, in whole or in part, requires the prior express
+written and exclusive permission of the author.
+Strictly prohibited for commercial use.
 =============================================================================
 """
 
@@ -543,9 +550,16 @@ def REMOVE_TEACHER_DEF_DAY():
 if __name__ == "__main__":
     print("\n" + "="*70)
     print("AUTOMATED FACULTY ABSENCE & SUBSTITUTION MANAGEMENT SYSTEM (2024)")
-    print("Project ID: 006/2024 | All Rights Reserved")
+    print("Project ID: 006/2024 | Author: M Nandish | All Rights Reserved")
+    print("Notice: Exclusive written permission required for copy/edit/use.")
+    print("        Commercial use is strictly prohibited.")
     print("Default Admin Credentials:  Username: admin  | Password: 1234")
     print("Default User Credentials:   Username: user   | Password: 1234")
     print("Web Server Port: http://127.0.0.1:5000")
     print("="*70 + "\n")
-    app.run(debug=True, port=5000)
+    try:
+        # use_reloader=False prevents Werkzeug from raising SystemExit(3)
+        # when running under IDE debuggers (e.g. debugpy) or standard sessions
+        app.run(debug=True, port=5000, use_reloader=False)
+    except SystemExit:
+        pass

@@ -3,7 +3,9 @@
 [![Project ID](https://img.shields.io/badge/Project%20ID-006%2F2024-blue.svg)](https://github.com/)
 [![Year](https://img.shields.io/badge/Year-2024-green.svg)](https://github.com/)
 [![Edition](https://img.shields.io/badge/Smart%20India%20Hackathon-Presentation%20Edition-orange.svg)](https://github.com/)
-[![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)](https://github.com/)
+[![License](https://img.shields.io/badge/License-Proprietary%20%7C%20All%20Rights%20Reserved-red.svg)](LICENSE)
+[![Usage](https://img.shields.io/badge/Commercial%20Use-Strictly%20Prohibited-critical.svg)](LICENSE)
+[![Permission](https://img.shields.io/badge/Copy%2FEdit%2FUse-Written%20Permission%20Required-yellow.svg)](LICENSE)
 
 **Automated Faculty Absence & Substitution Management System** is a full-featured web-based institutional scheduling and teacher substitution allocation platform. It automatically detects absent faculty members, identifies free periods, and computes clash-free substitute faculty assignments in seconds.
 
@@ -166,12 +168,19 @@ git push -u origin main --tags
 
 ---
 
-## 📄 License & Attribution
+## 📄 License & Terms of Use
 
-```text
-Automated Faculty Absence & Substitution Management System
-Project ID: 006/2024
-Year: 2024
-Author: M Nandish
-All Rights Reserved.
-```
+> **CRITICAL LEGAL NOTICE:**  
+> **Copyright © 2024 M Nandish. All Rights Reserved.**  
+> Project ID: `006/2024` · Year: `2024` · Author & Rights Holder: **M Nandish**
+
+This project, its source code, architecture, algorithms, workflows, and database schemas are proprietary intellectual property.
+
+1. **Prior Written Permission Required:**
+   - Any copying, reproduction, editing, modification, adaptation, updating, redistribution, or use of this repository (or any part thereof) requires the **prior explicit, formal written and exclusive permission of the author (M Nandish)**.
+2. **Strictly Non-Commercial:**
+   - This software and its algorithms **CANNOT** be used for any commercial purpose, enterprise deployment, monetization, or integration into commercial products without an exclusive commercial agreement signed by the author.
+3. **Reference & Evaluation Only:**
+   - Access to this repository is granted strictly for academic review, demonstration, and evaluation (e.g. Smart India Hackathon showcase). No license, patent right, or ownership is transferred.
+
+For full terms and conditions, refer to the [LICENSE](LICENSE) file. For permissions and inquiries, contact the author directly.
