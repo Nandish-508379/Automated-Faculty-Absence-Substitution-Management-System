@@ -56,7 +56,19 @@ raw_html = res.data.decode('utf-8')
 snap(raw_html, '04_master_timetable_grid', 1366, 850)
 
 # 5. Master Timetable List View
-list_html = raw_html.replace('id="gridView" class="view-section active"', 'id="gridView" class="view-section"').replace('id="listView" class="view-section"', 'id="listView" class="view-section active"')
+list_html = raw_html.replace(
+    '<div id="interfaceGrid">',
+    '<div id="interfaceGrid" style="display: none;">'
+).replace(
+    '<div id="interfaceList" style="display: none;">',
+    '<div id="interfaceList" style="display: block;">'
+).replace(
+    'id="tabGridBtn" class="view-tab-btn active"',
+    'id="tabGridBtn" class="view-tab-btn"'
+).replace(
+    'id="tabListBtn" class="view-tab-btn"',
+    'id="tabListBtn" class="view-tab-btn active"'
+)
 snap(list_html, '05_master_timetable_list', 1366, 850)
 
 # 6. Faculty Absence Arrangement Request Page
@@ -69,7 +81,19 @@ raw_arr_html = res.data.decode('utf-8')
 snap(raw_arr_html, '07_substitution_matrix_grid', 1366, 920)
 
 # 8. Substitution Allocation List View
-list_arr_html = raw_arr_html.replace('id="gridView" class="view-section active"', 'id="gridView" class="view-section"').replace('id="listView" class="view-section"', 'id="listView" class="view-section active"')
+list_arr_html = raw_arr_html.replace(
+    '<div id="interfaceArrGrid">',
+    '<div id="interfaceArrGrid" style="display: none;">'
+).replace(
+    '<div id="interfaceArrList" style="display: none;">',
+    '<div id="interfaceArrList" style="display: block;">'
+).replace(
+    'id="tabArrGridBtn" class="view-tab-btn active"',
+    'id="tabArrGridBtn" class="view-tab-btn"'
+).replace(
+    'id="tabArrListBtn" class="view-tab-btn"',
+    'id="tabArrListBtn" class="view-tab-btn active"'
+)
 snap(list_arr_html, '08_substitution_table_list', 1366, 850)
 
 # 9. CSV Data Ingestion Portal
