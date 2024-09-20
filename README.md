@@ -3,13 +3,13 @@
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![Project ID](https://img.shields.io/badge/Project%20ID-006%2F2024-blue.svg)](#)
 [![Year of Project](https://img.shields.io/badge/Year%20of%20Project-2024-green.svg)](#)
-[![Hackathon Edition](https://img.shields.io/badge/Smart%20India%20Hackathon-Presentation%20Edition-orange.svg)](#)
+[![Edition](https://img.shields.io/badge/Edition-Enterprise%20Production%20Release-orange.svg)](#)
 [![License: Proprietary](https://img.shields.io/badge/License-Proprietary%20%7C%20All%20Rights%20Reserved-red.svg)](LICENSE)
 [![Usage](https://img.shields.io/badge/Commercial%20Use-Strictly%20Prohibited-critical.svg)](LICENSE)
 [![Permission](https://img.shields.io/badge/Copy%2FEdit%2FUse-Written%20Permission%20Required-yellow.svg)](LICENSE)
 [![Architecture](https://img.shields.io/badge/Database-Dual%20Engine%20(MySQL%20%2B%20SQLite%20Failover)-blueviolet.svg)](#)
 [![Framework](https://img.shields.io/badge/Framework-Flask%20WSGI%20Engine-informational.svg)](#)
-[![Institution](https://img.shields.io/badge/Academic%20Heritage-KV%20AFS%20%E2%86%92%20MSRIT%20%E2%86%92%20SIH-success.svg)](#)
+[![Institution](https://img.shields.io/badge/Academic%20Heritage-KV%20AFS%20(2022)%20%E2%86%92%20MSRIT%20(2023)%20%E2%86%92%20Enterprise%20(2024)-success.svg)](#)
 
 > **Academic Enterprise Project** | **Project ID: 006/2024** | **Year of Project: 2024**  
 > **Author & Rights Holder**: **M NANDISH** (USN: `1MS23ET073`), Department of Electronics & Telecommunication Engineering, Ramaiah Institute of Technology (MSRIT), Bengaluru, Karnataka, India.  
@@ -19,7 +19,7 @@
 
 > [!IMPORTANT]
 > **Academic Integrity, Lineage & Operational Disclaimer**:  
-> - **Multi-Year Developmental Genesis**: This system originated as a Class 12 CBSE Computer Science Mini Project at **Kendriya Vidyalaya AFS Yelahanka, Bengaluru (2022)**, was integrated into a modular web framework during the *Introduction to Web Development* course at **Ramaiah Institute of Technology (MSRIT, 2023)**, and was fully engineered into an enterprise dual-database production platform for the **Smart India Hackathon Presentation Edition (Project ID: 006/2024)**.
+> - **Multi-Year Developmental Genesis**: This system originated as a Class 12 CBSE Computer Science Mini Project at **Kendriya Vidyalaya AFS Yelahanka, Bengaluru (2022)**, was integrated into a modular web framework during the *Introduction to Web Development* course at **Ramaiah Institute of Technology (MSRIT, 2023)**, and was fully engineered into an enterprise dual-database production platform (Project ID: 006/2024).
 > - **Dual-Engine Standalone Testing**: If a local MySQL server is not detected on port 3306, the platform activates its embedded SQLite engine (`timetable.db`), generates all 6 weekday tables, provisions default administrative and faculty accounts, and automatically seeds initial master schedule records from `INITIALISE/newrecc.csv` for immediate out-of-the-box operation.
 > - **Proprietary & Non-Commercial Rights**: All architectural designs, algorithmic workflows, user interface styling, database schemas, and documentation are the proprietary intellectual property of **M Nandish**. Any reproduction, editing, copying, updating, or commercial deployment requires the prior explicit written and exclusive permission of the author.
 
@@ -33,7 +33,7 @@ The production web portal features a human-crafted 2024 institutional design sys
 | Portal Authentication & Academic Lineage Banner | Primary Administrative Control Center |
 | :---: | :---: |
 | ![Portal Authentication](docs/screenshots/01_login_page.png) | ![Administrative Dashboard](docs/screenshots/02_admin_dashboard.png) |
-| *Role-based login interface displaying the official Project ID: 006/2024 badge, session day selector, and academic lineage notice (KV AFS Yelahanka 2022 → MSRIT 2023 → SIH 2024).* | *Administrator workspace providing quick-access cards for clash-free substitution computation, master schedule viewing, CSV data ingestion, user provisioning, and schedule purging.* |
+| *Role-based login interface displaying the official Project ID: 006/2024 badge, session day selector, and academic lineage notice (KV AFS Yelahanka 2022 → MSRIT 2023 → Enterprise 2024).* | *Administrator workspace providing quick-access cards for clash-free substitution computation, master schedule viewing, CSV data ingestion, user provisioning, and schedule purging.* |
 
 ### 2. Faculty Portal & Substitution Allocation Request
 | Faculty & User Self-Service Portal | Faculty Absence Registration Console |
@@ -95,54 +95,54 @@ The system operates across a modular four-tier architecture separating user pres
 
 ```mermaid
 graph TD
-    subgraph Tier1["Tier 1: Client Presentation Layer (Institutional Web UI)"]
-        UI_AUTH[Portal Authentication & Lineage Display]
-        UI_ADM[Admin Dashboard: Action Cards & Stats]
-        UI_USR[Faculty Portal: Read-Only Views]
-        UI_GRID[Master Timetable Grid: 8 Periods + Recess]
-        UI_LIST[Searchable Record List: Instant JS Filter]
-        UI_ARR[Substitution Matrix: Color-Coded Green / Red / Teal]
-        UI_PRINT[Print Engine: Formatted Arrangement Slips]
+    subgraph Tier1 ["Tier 1: Client Presentation Layer (Institutional Web UI)"]
+        UI_AUTH["Portal Authentication & Lineage Display"]
+        UI_ADM["Admin Dashboard: Action Cards & Stats"]
+        UI_USR["Faculty Portal: Read-Only Views"]
+        UI_GRID["Master Timetable Grid: 8 Periods + Recess"]
+        UI_LIST["Searchable Record List: Instant JS Filter"]
+        UI_ARR["Substitution Matrix: Color-Coded Green / Red / Teal"]
+        UI_PRINT["Print Engine: Formatted Arrangement Slips"]
     end
 
-    subgraph Tier2["Tier 2: Application & Business Logic Layer (Flask WSGI)"]
-        AUTH_MGR[Session & RBAC Authorization Manager]
-        CSV_PARSER[Resilient CSV Stream & BOM Ingestion Parser]
-        ABS_DETECT[Absent Faculty Period Detection Query]
-        FREE_QUERY[Free Faculty Slot Matching Query class = 'null']
-        ALLOC_ENG[Deterministic Clash-Free Substitution Engine]
-        FILE_EXP[CSV File Export & Download Generator]
+    subgraph Tier2 ["Tier 2: Application & Business Logic Layer (Flask WSGI)"]
+        AUTH_MGR["Session & RBAC Authorization Manager"]
+        CSV_PARSER["Resilient CSV Stream & BOM Ingestion Parser"]
+        ABS_DETECT["Absent Faculty Period Detection Query"]
+        FREE_QUERY["Free Faculty Slot Matching Query: class = 'null'"]
+        ALLOC_ENG["Deterministic Clash-Free Substitution Engine"]
+        FILE_EXP["CSV File Export & Download Generator"]
     end
 
-    subgraph Tier3["Tier 3: Dual-Database Persistence Layer (DatabaseManager)"]
-        DB_ROUTER{Active Database Engine Router}
-        MYSQL_ENG[(MySQL 8.0 Primary Database: localhost:3306)]
-        SQLITE_ENG[(SQLite 3 Zero-Config Failover: timetable.db)]
-        AUTO_SEED[Schema Creator & Auto-Seeding from newrecc.csv]
+    subgraph Tier3 ["Tier 3: Dual-Database Persistence Layer (DatabaseManager)"]
+        DB_ROUTER{"Active Database Engine Router"}
+        MYSQL_ENG[("MySQL 8.0 Primary Database: localhost:3306")]
+        SQLITE_ENG[("SQLite 3 Zero-Config Failover: timetable.db")]
+        AUTO_SEED["Schema Creator & Auto-Seeding from newrecc.csv"]
     end
 
-    subgraph Tier4["Tier 4: File Storage & Data Ingestion Layer"]
-        CSV_SRC[INITIALISE/newrecc.csv Sample Dataset]
-        CSV_EXP[Download_files/ Daily Timetable Exports]
-        LEGACY[legacy_versions/ WEB01 - WEB10 Historical Roadmap]
+    subgraph Tier4 ["Tier 4: File Storage & Data Ingestion Layer"]
+        CSV_SRC["INITIALISE/newrecc.csv Sample Dataset"]
+        CSV_EXP["Download_files/ Daily Timetable Exports"]
+        LEGACY["legacy_versions/ WEB01 - WEB10 Historical Roadmap"]
     end
 
-    UI_AUTH -->|POST /login| AUTH_MGR
-    AUTH_MGR -->|Authenticate Credentials| DB_ROUTER
-    UI_ADM -->|POST /INSERT_DATA| CSV_PARSER
-    CSV_PARSER -->|Insert Valid Records| DB_ROUTER
-    UI_ADM -->|POST /do_arrangement| ABS_DETECT
+    UI_AUTH -->|"POST /login"| AUTH_MGR
+    AUTH_MGR -->|"Authenticate Credentials"| DB_ROUTER
+    UI_ADM -->|"POST /INSERT_DATA"| CSV_PARSER
+    CSV_PARSER -->|"Insert Valid Records"| DB_ROUTER
+    UI_ADM -->|"POST /do_arrangement"| ABS_DETECT
     ABS_DETECT --> DB_ROUTER
     DB_ROUTER --> FREE_QUERY
     FREE_QUERY --> ALLOC_ENG
-    ALLOC_ENG -->|Render Matrix & Summary| UI_ARR
-    UI_GRID -->|GET /Download_File| FILE_EXP
+    ALLOC_ENG -->|"Render Matrix & Summary"| UI_ARR
+    UI_GRID -->|"GET /Download_File"| FILE_EXP
     FILE_EXP --> CSV_EXP
 
-    DB_ROUTER -->|Primary Connection| MYSQL_ENG
-    DB_ROUTER -->|Offline Fallback 10060/10061| SQLITE_ENG
-    SQLITE_ENG -->|Empty Database Detection| AUTO_SEED
-    CSV_SRC -->|Seed 6 Weekday Tables| AUTO_SEED
+    DB_ROUTER -->|"Primary Connection"| MYSQL_ENG
+    DB_ROUTER -->|"Offline Fallback 10060/10061"| SQLITE_ENG
+    SQLITE_ENG -->|"Empty Database Detection"| AUTO_SEED
+    CSV_SRC -->|"Seed 6 Weekday Tables"| AUTO_SEED
 ```
 
 ### Architectural Tier Breakdown
@@ -208,30 +208,30 @@ The operational lifecycle of the system covers daily morning absence logging, al
 
 ```mermaid
 flowchart TD
-    START([System Cold Boot]) --> DB_CHECK{Database Initialized?}
-    DB_CHECK -->|No| SEED_DB[Create Tables & Seed Initial Records from newrecc.csv]
-    DB_CHECK -->|Yes| LOGIN_SCR[Display Portal Authentication Screen]
+    START(["System Cold Boot"]) --> DB_CHECK{"Database Initialized?"}
+    DB_CHECK -->|"No"| SEED_DB["Create Tables & Seed Initial Records from newrecc.csv"]
+    DB_CHECK -->|"Yes"| LOGIN_SCR["Display Portal Authentication Screen"]
     SEED_DB --> LOGIN_SCR
 
-    LOGIN_SCR --> AUTH_SUBMIT[/User Submits Credentials & Session Day/]
-    AUTH_SUBMIT --> AUTH_VALID{Valid User & Password?}
-    AUTH_VALID -->|No| LOGIN_ERR[Render Invalid Credentials Error] --> LOGIN_SCR
-    AUTH_VALID -->|Yes| RBAC_BRANCH{User Role?}
+    LOGIN_SCR --> AUTH_SUBMIT[/"User Submits Credentials & Session Day"/]
+    AUTH_SUBMIT --> AUTH_VALID{"Valid User & Password?"}
+    AUTH_VALID -->|"No"| LOGIN_ERR["Render Invalid Credentials Error"] --> LOGIN_SCR
+    AUTH_VALID -->|"Yes"| RBAC_BRANCH{"User Role?"}
 
-    RBAC_BRANCH -->|Role 'U' Faculty| USR_DASH[User Dashboard: View Schedule & Arrangements]
-    RBAC_BRANCH -->|Role 'A' Admin| ADM_DASH[Admin Dashboard: Full System Authority]
+    RBAC_BRANCH -->|"Role 'U' Faculty"| USR_DASH["User Dashboard: View Schedule & Arrangements"]
+    RBAC_BRANCH -->|"Role 'A' Admin"| ADM_DASH["Admin Dashboard: Full System Authority"]
 
-    ADM_DASH --> OP_SELECT{Admin Action Selected}
-    OP_SELECT -->|View Master Timetable| VIEW_TT[Render Dual-Interface Timetable Grid & List]
-    OP_SELECT -->|Report Faculty Absence| ARR_FORM[Select Day & Input Absent Faculty ID]
-    OP_SELECT -->|Import Schedule CSV| CSV_PORTAL[Upload CSV File or Specify Dataset Path]
-    OP_SELECT -->|User Account Admin| USER_MGMT[Add User / Remove User RBAC Operations]
-    OP_SELECT -->|Purge Schedules| PURGE_OPS[Purge Teacher Schedule / Purge Day]
+    ADM_DASH --> OP_SELECT{"Admin Action Selected"}
+    OP_SELECT -->|"View Master Timetable"| VIEW_TT["Render Dual-Interface Timetable Grid & List"]
+    OP_SELECT -->|"Report Faculty Absence"| ARR_FORM["Select Day & Input Absent Faculty ID"]
+    OP_SELECT -->|"Import Schedule CSV"| CSV_PORTAL["Upload CSV File or Specify Dataset Path"]
+    OP_SELECT -->|"User Account Admin"| USER_MGMT["Add User / Remove User RBAC Operations"]
+    OP_SELECT -->|"Purge Schedules"| PURGE_OPS["Purge Teacher Schedule / Purge Day"]
 
-    ARR_FORM --> RUN_ARR[Execute Algorithmic Clash-Free Substitution Engine]
-    RUN_ARR --> ARR_RESULTS[Render Color-Coded Substitution Matrix & Summary]
-    ARR_RESULTS --> PRINT_SLIP[Print Official Departmental Substitution Slip]
-    VIEW_TT --> CSV_EXP[Download Day Timetable as CSV]
+    ARR_FORM --> RUN_ARR["Execute Algorithmic Clash-Free Substitution Engine"]
+    RUN_ARR --> ARR_RESULTS["Render Color-Coded Substitution Matrix & Summary"]
+    ARR_RESULTS --> PRINT_SLIP["Print Official Departmental Substitution Slip"]
+    VIEW_TT --> CSV_EXP["Download Day Timetable as CSV"]
 ```
 
 ---
@@ -242,29 +242,29 @@ The core algorithmic workflow resolves faculty substitution by extracting absent
 
 ```mermaid
 flowchart TD
-    A_START([Input: Absent Faculty ID 't' and Day 'd']) --> Q_ABS[Query Master Timetable for Day 'd' where ename = 't' AND class != 'null']
-    Q_ABS --> CHECK_ABS{Records Found?}
-    CHECK_ABS -->|No Records| NO_LEAVE[Render Empty Output: Faculty has no assigned classes on selected day]
-    CHECK_ABS -->|Records Found| EXTRACT_P[Extract Periods P = [p1, p2, ...] and Classes C = [c1, c2, ...]]
+    A_START(["Input: Absent Faculty ID 't' and Day 'd'"]) --> Q_ABS["Query Master Timetable for Day 'd' where ename = 't' AND class != 'null'"]
+    Q_ABS --> CHECK_ABS{"Records Found?"}
+    CHECK_ABS -->|"No Records"| NO_LEAVE["Render Empty Output: Faculty has no assigned classes on selected day"]
+    CHECK_ABS -->|"Records Found"| EXTRACT_P["Extract Periods P = (p1, p2, ...) and Classes C = (c1, c2, ...)"]
 
-    EXTRACT_P --> Q_FREE[Query Master Timetable where class = 'null' AND ename != 't' AND period IN P]
-    Q_FREE --> MAP_FREE[Group Available Free Faculty by Period into Dictionary: free_by_period[p]]
+    EXTRACT_P --> Q_FREE["Query Master Timetable where class = 'null' AND ename != 't' AND period IN P"]
+    Q_FREE --> MAP_FREE["Group Available Free Faculty by Period into Dictionary: free_by_period"]
 
-    MAP_FREE --> LOOP_START[Iterate through each absent class slot: period 'p', class 'c']
-    LOOP_START --> CHECK_AVAIL{Is free_by_period[p] non-empty?}
+    MAP_FREE --> LOOP_START["Iterate through each absent class slot: period 'p', class 'c'"]
+    LOOP_START --> CHECK_AVAIL{"Are candidate teachers free for period p?"}
 
-    CHECK_AVAIL -->|Yes: Candidates Free| ASSIGN_SUB[Assign First Available Teacher: sub_teacher = free_by_period[p][0]]
-    ASSIGN_SUB --> MARK_GREEN[Set Status: GREEN 'Substitute Free & Assigned']
-    MARK_GREEN --> COVER_MAP[Mark Covering Teacher in Matrix: 'Covering c for t' in TEAL]
+    CHECK_AVAIL -->|"Yes: Candidates Free"| ASSIGN_SUB["Assign First Available Teacher: sub_teacher = candidate"]
+    ASSIGN_SUB --> MARK_GREEN["Set Status: GREEN 'Substitute Free & Assigned'"]
+    MARK_GREEN --> COVER_MAP["Mark Covering Teacher in Matrix: 'Covering c for t' in TEAL"]
 
-    CHECK_AVAIL -->|No: No Candidates Free| MARK_RED[Set Status: RED 'NO TEACHER FREE & UNASSIGNED']
-    MARK_RED --> RECORD_UNASSIGNED[Leave Period Uncovered in Timetable]
+    CHECK_AVAIL -->|"No: No Candidates Free"| MARK_RED["Set Status: RED 'NO TEACHER FREE & UNASSIGNED'"]
+    MARK_RED --> RECORD_UNASSIGNED["Leave Period Uncovered in Timetable"]
 
-    COVER_MAP --> NEXT_SLOT{More Slots in P?}
+    COVER_MAP --> NEXT_SLOT{"More Slots in P?"}
     RECORD_UNASSIGNED --> NEXT_SLOT
-    NEXT_SLOT -->|Yes| LOOP_START
-    NEXT_SLOT -->|No| BUILD_MATRICES[Construct Dual Presentation Matrices: 1. Full Matrix Grid, 2. Tabular Substitution List]
-    BUILD_MATRICES --> RENDER_PAGE([Render arr_output.html])
+    NEXT_SLOT -->|"Yes"| LOOP_START
+    NEXT_SLOT -->|"No"| BUILD_MATRICES["Construct Dual Presentation Matrices: 1. Full Matrix Grid, 2. Tabular Substitution List"]
+    BUILD_MATRICES --> RENDER_PAGE(["Render arr_output.html"])
 ```
 
 ---
@@ -275,27 +275,27 @@ Ensures zero system downtime regardless of whether MySQL server is online, offli
 
 ```mermaid
 flowchart TD
-    BOOT([Initialize DatabaseManager]) --> TRY_MYSQL[Attempt MySQL Connection: host, user, password, database]
-    TRY_MYSQL --> MYSQL_CONN{Connected Successfully?}
+    BOOT(["Initialize DatabaseManager"]) --> TRY_MYSQL["Attempt MySQL Connection: host, user, password, database"]
+    TRY_MYSQL --> MYSQL_CONN{"Connected Successfully?"}
 
-    MYSQL_CONN -->|Yes| SET_MYSQL[Set engine = 'mysql' | Bind MySQL Connection Pool]
-    MYSQL_CONN -->|No / Timeout / 10060| LOG_NOTICE[Log Notice: MySQL Unavailable, Seamlessly Activating SQLite Fallback]
+    MYSQL_CONN -->|"Yes"| SET_MYSQL["Set engine = 'mysql' (Bind MySQL Connection Pool)"]
+    MYSQL_CONN -->|"No / Timeout / 10060"| LOG_NOTICE["Log Notice: MySQL Unavailable, Seamlessly Activating SQLite Fallback"]
 
-    LOG_NOTICE --> SET_SQLITE[Set engine = 'sqlite' | Target Database File: timetable.db]
-    SET_SQLITE --> INIT_SQLITE[Execute _init_sqlite_db]
-    INIT_SQLITE --> CREATE_TBLS[CREATE TABLE IF NOT EXISTS for monday...saturday and users]
-    CREATE_TBLS --> SEED_USERS[INSERT OR IGNORE Default Admin: admin/1234 & User: user/1234]
+    LOG_NOTICE --> SET_SQLITE["Set engine = 'sqlite' (Target Database File: timetable.db)"]
+    SET_SQLITE --> INIT_SQLITE["Execute _init_sqlite_db"]
+    INIT_SQLITE --> CREATE_TBLS["CREATE TABLE IF NOT EXISTS for monday...saturday and users"]
+    CREATE_TBLS --> SEED_USERS["INSERT OR IGNORE Default Admin: admin/1234 & User: user/1234"]
 
-    SEED_USERS --> CHECK_MONDAY{SELECT COUNT(*) FROM monday == 0?}
-    CHECK_MONDAY -->|Yes: Empty Database| READ_CSV[Read Seed Data from INITIALISE/newrecc.csv with utf-8-sig]
-    CHECK_MONDAY -->|No: Data Already Exists| READY_DB[Database Ready for Ingestion & Queries]
+    SEED_USERS --> CHECK_MONDAY{"SELECT COUNT(*) FROM monday == 0?"}
+    CHECK_MONDAY -->|"Yes: Empty Database"| READ_CSV["Read Seed Data from INITIALISE/newrecc.csv with utf-8-sig"]
+    CHECK_MONDAY -->|"No: Data Already Exists"| READY_DB["Database Ready for Ingestion & Queries"]
 
-    READ_CSV --> FILTER_HEADER[Filter Header Rows & Non-Numeric Periods]
-    FILTER_HEADER --> POPULATE_DAYS[Populate monday through saturday with Base Schedule]
+    READ_CSV --> FILTER_HEADER["Filter Header Rows & Non-Numeric Periods"]
+    FILTER_HEADER --> POPULATE_DAYS["Populate monday through saturday with Base Schedule"]
     POPULATE_DAYS --> READY_DB
 
     SET_MYSQL --> READY_DB
-    READY_DB --> DISPATCH_QUERY[Execute db.query: Convert %s to ? dynamically if engine == 'sqlite']
+    READY_DB --> DISPATCH_QUERY["Execute db.query: Convert %s to ? dynamically if engine == 'sqlite'"]
 ```
 
 ---
@@ -306,17 +306,17 @@ Enforces strict separation of duties between institutional administrators and te
 
 ```mermaid
 flowchart TD
-    REQ([Incoming HTTP Request to Protected Route]) --> CHK_SESS{session['username'] exists?}
-    CHK_SESS -->|No| REDIR_LOGIN[Redirect to /login]
-    CHK_SESS -->|Yes| CHK_ROUTE{Target Route Authorization Level}
+    REQ(["Incoming HTTP Request to Protected Route"]) --> CHK_SESS{"session['username'] exists?"}
+    CHK_SESS -->|"No"| REDIR_LOGIN["Redirect to /login"]
+    CHK_SESS -->|"Yes"| CHK_ROUTE{"Target Route Authorization Level"}
 
-    CHK_ROUTE -->|Public Auth Routes: /login, /Logout| ALLOW_REQ[Allow Request Execution]
-    CHK_ROUTE -->|General Faculty Routes: /VIEW_TIMETABLE, /do_arrangement, /CHANGE_PWD| ALLOW_REQ
+    CHK_ROUTE -->|"Public Auth Routes: /login, /Logout"| ALLOW_REQ["Allow Request Execution"]
+    CHK_ROUTE -->|"General Faculty Routes: /VIEW_TIMETABLE, /do_arrangement, /Change_Password"| ALLOW_REQ
 
-    CHK_ROUTE -->|Administrative Only Routes: /INSERT_DATA, /ADD_USER, /REMOVE_USER, /DELETE_COMPLETE_DAY, /REMOVE_TEACHER_DEF_DAY| CHK_ADMIN{session['role'] == 'A'?}
+    CHK_ROUTE -->|"Administrative Only Routes: /INSERT_DATA, /ADD_USER, /REMOVE_USER, /DELETE_COMPLETE_DAY, /REMOVE_TEACHER_DATA"| CHK_ADMIN{"session['role'] == 'A'?"}
 
-    CHK_ADMIN -->|Yes: Authorized Administrator| EXEC_ADMIN[Execute Administrative Operation]
-    CHK_ADMIN -->|No: Unauthorized Access Attempt| DENY_ADMIN[Redirect to /login with Privilege Guard]
+    CHK_ADMIN -->|"Yes: Authorized Administrator"| EXEC_ADMIN["Execute Administrative Operation"]
+    CHK_ADMIN -->|"No: Unauthorized Access Attempt"| DENY_ADMIN["Redirect to /login with Privilege Guard"]
 ```
 
 ---
@@ -356,20 +356,20 @@ While currently deployed for single-department or high school schedules, the arc
 
 ```mermaid
 graph LR
-    subgraph CampusInfrastructure["Institutional Load Balancer & Gateway"]
-        LB[Nginx Reverse Proxy / Port 80 & 443]
+    subgraph CampusInfrastructure ["Institutional Load Balancer & Gateway"]
+        LB["Nginx Reverse Proxy / Port 80 & 443"]
     end
 
-    subgraph AppInstances["Multi-Worker WSGI Pool"]
-        W1[Gunicorn Worker 1: Dept. of ETE]
-        W2[Gunicorn Worker 2: Dept. of CSE]
-        W3[Gunicorn Worker 3: Dept. of ISE]
+    subgraph AppInstances ["Multi-Worker WSGI Pool"]
+        W1["Gunicorn Worker 1: Dept. of ETE"]
+        W2["Gunicorn Worker 2: Dept. of CSE"]
+        W3["Gunicorn Worker 3: Dept. of ISE"]
     end
 
-    subgraph DatabaseCluster["Enterprise Database Cluster"]
-        DB_PRIMARY[(MySQL 8.0 Primary Cluster)]
-        DB_REPLICA[(MySQL Read Replica)]
-        SQLITE_LOCAL[(Local Node SQLite Fallback)]
+    subgraph DatabaseCluster ["Enterprise Database Cluster"]
+        DB_PRIMARY[("MySQL 8.0 Primary Cluster")]
+        DB_REPLICA[("MySQL Read Replica")]
+        SQLITE_LOCAL[("Local Node SQLite Fallback")]
     end
 
     LB --> W1
@@ -380,7 +380,7 @@ graph LR
     W2 <--> DB_PRIMARY
     W3 <--> DB_PRIMARY
 
-    W1 -.->|Failover| SQLITE_LOCAL
+    W1 -.->|"Failover"| SQLITE_LOCAL
 ```
 
 - **Departmental Partitioning**: Schedule tables can be namespaced by department code (e.g. `ete_monday`, `cse_monday`) while utilizing the identical substitution engine.
@@ -477,10 +477,10 @@ The platform has undergone a structured multi-year development trajectory from a
 
 ### Comparative Milestone Analysis
 
-| Feature Dimension | 2022 CLI Prototype (Class 12) | 2023 Web Prototype (MSRIT) | 2024 Production Release (SIH) |
+| Feature Dimension | 2022 CLI Prototype (Class 12) | 2023 Web Prototype (MSRIT) | 2024 Production Enterprise Release |
 | :--- | :--- | :--- | :--- |
 | **Project Code / ID** | CS Mini Project 2022 | Web Dev Course 2023 | **Project ID: 006/2024** |
-| **Host Institution** | Kendriya Vidyalaya AFS Yelahanka | Ramaiah Institute of Technology | **Smart India Hackathon Edition** |
+| **Host Institution** | Kendriya Vidyalaya AFS Yelahanka | Ramaiah Institute of Technology | **Enterprise Production Edition** |
 | **Runtime Architecture** | Standalone Python Script (`main.py`) | Basic Flask Application (`WEB01`-`WEB07`) | **Dual-Engine Production WSGI Platform** |
 | **Database Support** | Hardcoded MySQL credentials | Fixed MySQL connection | **MySQL 8.0 + Zero-Config SQLite Fallback** |
 | **UI Paradigm** | Terminal CLI Text Prompts | Basic Unstyled HTML Forms | **Dual-Interface Matrix Grid + Searchable List** |
@@ -576,7 +576,7 @@ E:\2024_006 WEB_TIMETABLE_MANAGEMENT SYSTEM\
 │   ├── WEB09 ALL WORKING/                # Prototype 9: Initializer Packaging
 │   └── WEB10 ENHANCED INITIALISATION/    # Prototype 10: Pre-Release Production Candidate
 │
-└── 2024 SMART_INDIA_HACKATHON_PRESENTATION/ # Smart India Hackathon Packaged Showcase Edition
+└── 2024 SMART_INDIA_HACKATHON_PRESENTATION/ # Institutional Presentation Showcase Package
 ```
 
 ---
@@ -716,7 +716,7 @@ SECRET_KEY=your_secret_session_key
 2. **Strict Prohibition on Commercial Use**:  
    Commercial use, commercial redistribution, enterprise monetization, or integration into commercial scheduling platforms is **STRICTLY PROHIBITED** without an executed commercial licensing contract signed by M Nandish.
 3. **Reference & Academic Evaluation Only**:  
-   This repository is made accessible solely for academic portfolio review, educational assessment, and competition demonstration (e.g. Smart India Hackathon). Public viewing grants no license, patent entitlement, or derivative work rights.
+   This repository is made accessible solely for academic portfolio review, educational assessment, and academic assessment. Public viewing grants no license, patent entitlement, or derivative work rights.
 
 For licensing authorizations, contact the author directly at: `nandish508379@gmail.com`.
 

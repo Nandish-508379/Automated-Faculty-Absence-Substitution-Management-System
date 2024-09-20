@@ -3,7 +3,7 @@
 AUTOMATED FACULTY ABSENCE & SUBSTITUTION MANAGEMENT SYSTEM
 Project ID: 006/2024 | Year: 2024
 Author & Rights Holder: M Nandish
-Smart India Hackathon Presentation Edition
+Enterprise Production Edition
 
 PROPRIETARY & NON-COMMERCIAL NOTICE:
 Copyright (c) 2024 M Nandish. All Rights Reserved.
@@ -187,6 +187,9 @@ def login():
     return render_template('login.html')
 
 @app.route('/Change_Password', methods=['GET', 'POST'])
+@app.route('/change_password', methods=['GET', 'POST'])
+@app.route('/CHANGE_PWD', methods=['GET', 'POST'])
+@app.route('/change_pwd', methods=['GET', 'POST'])
 def Change_Password():
     if 'username' not in session:
         return redirect('/login')
@@ -236,6 +239,8 @@ def Logout():
 # Faculty Arrangement & Substitution Algorithm
 # ---------------------------------------------------------------------------
 @app.route('/do_arrangement', methods=['GET', 'POST'])
+@app.route('/Arrangement', methods=['GET', 'POST'])
+@app.route('/arrangement', methods=['GET', 'POST'])
 def do_arrangement():
     if 'username' not in session:
         return redirect('/login')
@@ -341,6 +346,7 @@ def back_to_home_page():
 # Timetable Viewing & Exporting
 # ---------------------------------------------------------------------------
 @app.route('/VIEW_TIMETABLE', methods=['GET'])
+@app.route('/view_timetable', methods=['GET'])
 def VIEW_TIMETABLE():
     if 'username' in session:
         day = session.get('day', 'monday')
@@ -372,6 +378,7 @@ def VIEW_TIMETABLE():
     return redirect('/login')
 
 @app.route('/Download_File', methods=['GET'])
+@app.route('/download_file', methods=['GET'])
 def Download_File():
     if 'username' not in session:
         return redirect('/login')
@@ -402,6 +409,7 @@ def Download_File():
 # User Administration
 # ---------------------------------------------------------------------------
 @app.route('/ADD_USER', methods=['GET', 'POST'])
+@app.route('/add_user', methods=['GET', 'POST'])
 def ADD_USER():
     if session.get('role') != 'A':
         return redirect('/login')
@@ -428,6 +436,7 @@ def ADD_USER():
     return render_template('Add_User.html')
 
 @app.route('/REMOVE_USER', methods=['GET', 'POST'])
+@app.route('/remove_user', methods=['GET', 'POST'])
 def REMOVE_USER():
     if session.get('role') != 'A':
         return redirect('/login')
@@ -453,6 +462,7 @@ def Delete_User():
 # Data Ingestion & Timetable Operations
 # ---------------------------------------------------------------------------
 @app.route('/INSERT_DATA', methods=['GET', 'POST'])
+@app.route('/insert_data', methods=['GET', 'POST'])
 def INSERT_DATA():
     if session.get('role') != 'A':
         return redirect('/login')
@@ -506,6 +516,7 @@ def INSERT_DATA():
     return render_template("Insert_Data.html")
 
 @app.route('/DELETE_COMPLETE_DAY', methods=['GET', 'POST'])
+@app.route('/delete_complete_day', methods=['GET', 'POST'])
 def DELETE_COMPLETE_DAY():
     if session.get('role') != 'A':
         return redirect('/login')
@@ -518,6 +529,9 @@ def DELETE_COMPLETE_DAY():
     return render_template("Delete_Complete_Day.html")
 
 @app.route('/REMOVE_TEACHER_DATA', methods=['GET', 'POST'])
+@app.route('/remove_teacher_data', methods=['GET', 'POST'])
+@app.route('/REMOVE_TEACHER_DEF_DAY', methods=['GET', 'POST'])
+@app.route('/remove_teacher_def_day', methods=['GET', 'POST'])
 def REMOVE_TEACHER_DATA():
     if session.get('role') != 'A':
         return redirect('/login')
@@ -526,23 +540,14 @@ def REMOVE_TEACHER_DATA():
     if day not in VALID_DAYS:
         day = 'monday'
 
-    teach_details = db.query(f"SELECT DISTINCT ename FROM {day} WHERE ename IS NOT NULL ORDER BY ename ASC")
-    return render_template('Remove_Teacher_data.html', output_list2=teach_details)
-
-@app.route('/REMOVE_TEACHER_DEF_DAY', methods=['GET', 'POST'])
-def REMOVE_TEACHER_DEF_DAY():
-    if session.get('role') != 'A':
-        return redirect('/login')
-
     if request.method == 'POST':
-        day = session.get('day', 'monday')
-        if day not in VALID_DAYS:
-            day = 'monday'
         teacher = request.form.get('teacherToRemove', 'DEFAULT').strip()
         if teacher != "DEFAULT":
             db.query(f"DELETE FROM {day} WHERE ename = %s", (teacher,), commit=True)
         return redirect('/dashboard_admin')
-    return render_template("Remove_Teacher_data.html")
+
+    teach_details = db.query(f"SELECT DISTINCT ename FROM {day} WHERE ename IS NOT NULL ORDER BY ename ASC")
+    return render_template('Remove_Teacher_data.html', output_list2=teach_details)
 
 # ---------------------------------------------------------------------------
 # Application Entry Point
