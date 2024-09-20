@@ -37,3 +37,9 @@ desktop.ini
 
 # Logs
 *.log
+
+# Reference and temporary files (Do NOT publish to GitHub)
+DEMO_README*.md
+DEMO_README*
+*.tmp
+temp_*.html
