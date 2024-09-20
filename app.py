@@ -74,13 +74,16 @@ class DatabaseManager:
         cur.execute("SELECT COUNT(*) FROM monday")
         count = cur.fetchone()[0]
         if count == 0 and os.path.exists(SAMPLE_CSV_PATH):
-            with open(SAMPLE_CSV_PATH, 'r', newline='') as f:
+            with open(SAMPLE_CSV_PATH, 'r', newline='', encoding='utf-8-sig', errors='ignore') as f:
                 reader = csv.reader(f)
                 for row in reader:
                     if len(row) >= 3:
                         ename = row[0].strip()
                         cls = row[1].strip()
-                        period = int(row[2].strip())
+                        try:
+                            period = int(row[2].strip())
+                        except (ValueError, TypeError):
+                            continue
                         # Populate all days with initial schedule for instant testing
                         for day in VALID_DAYS:
                             cur.execute(f"INSERT INTO {day} VALUES (?, ?, ?)", (ename, cls, period))
@@ -458,22 +461,33 @@ def INSERT_DATA():
 
         records_to_insert = []
 
+        def extract_csv_records(stream_or_file):
+            valid_recs = []
+            reader = csv.reader(stream_or_file)
+            for row in reader:
+                if not row or len(row) < 3:
+                    continue
+                ename = row[0].strip()
+                cls = row[1].strip()
+                try:
+                    p_val = int(row[2].strip())
+                    if ename:
+                        valid_recs.append((ename, cls, p_val))
+                except (ValueError, TypeError):
+                    # Gracefully skip header rows (e.g. Teacher,Class,Period) or invalid numbers
+                    continue
+            return valid_recs
+
         # Option A: Direct browser file upload
         if csv_file and csv_file.filename != '':
-            stream = io.StringIO(csv_file.stream.read().decode("utf-8", errors="ignore"))
-            reader = csv.reader(stream)
-            for row in reader:
-                if len(row) >= 3:
-                    records_to_insert.append((row[0].strip(), row[1].strip(), int(row[2].strip())))
+            stream = io.StringIO(csv_file.stream.read().decode("utf-8-sig", errors="ignore"))
+            records_to_insert = extract_csv_records(stream)
         # Option B: Server / relative file path
         elif locat:
             target_path = locat if os.path.isabs(locat) else os.path.join(BASE_DIR, locat)
             if os.path.exists(target_path):
-                with open(target_path, "r", newline="", encoding="utf-8") as f:
-                    reader = csv.reader(f)
-                    for row in reader:
-                        if len(row) >= 3:
-                            records_to_insert.append((row[0].strip(), row[1].strip(), int(row[2].strip())))
+                with open(target_path, "r", newline="", encoding="utf-8-sig", errors="ignore") as f:
+                    records_to_insert = extract_csv_records(f)
 
         # Insert records into selected day's table
         if records_to_insert:
